@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+/* =======================================================
+all
+======================================================= */
+.register-section {
+    height: 100%;
+    background-color: #EEE;
+    padding: 15px;
+}
+
+.register-form {
+    width: 35%;
+    margin: 24px auto;
+}
+
+@media screen and (max-width: 768px) {
+    .register-form {
+        width: 80%;
+    }
+}
+
+.form-title {
+    padding: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.register-content {
+    width: 100%;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+
+/* =============== input =============== */
+.register-input input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    box-shadow: 0 0 1px .5px #888;
+    background-color: #EEE;
+    color: #888;
+}
+
+
+/* =============== error =============== */
+.register-error {
+    height: 100%;
+    min-height: 24px;
+    color: #FF0000;
+}
+
+
+/* =============== button =============== */
+.register-item:nth-of-type(4),
+.register-item:nth-of-type(5) {
+    margin-bottom: 24px;
+}
+
+.register-button {
+    width: 100%;
+}
+
+.register-button button {
+    width: 100%;
+    padding: 8px;
+    margin: 5px auto 10px;
+    text-align: center;
+    background-color: #2222DD;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 .5px 1px #CCC;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.register-button button:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+
+/* =============== login =============== */
+.register-item:nth-of-type(6) {
+    text-align: center;
+}
+
+.login-comment p {
+    font-size: 14px;
+    color: #888;
+}
+
+.login-link a {
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+    color: #2222DD;
+}
