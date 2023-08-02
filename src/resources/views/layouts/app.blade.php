@@ -45,13 +45,13 @@
                     </ul>
                 </nav>
             </div>
-            @endif
 
             <div class="burger">
                 <div class="burger-line"></div>
                 <div class="burger-line"></div>
                 <div class="burger-line"></div>
             </div>
+            @endif
         </header>
 
         <main class="main">
