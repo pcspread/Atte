@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+.logout-section {
+    height: 100%;
+    background-color: #EEE;
+}
+
+.logout-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logout-content h2 {
+    font-size: 18px;
+    margin: 5px;
+}
+
+.logout-content p {
+    margin: 15px;
+}
+
+.logout-content a {
+    max-width: 180px;
+    margin: 15px;
+    padding: 11px 24px;
+    background-color: #2222DD;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.logout-content a:hover {
+    opacity: .8;
+}
