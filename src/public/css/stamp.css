@@ -1,1 +1,76 @@
 @charset "UTF-8";
+
+
+/* ==================================================
+stamp
+================================================== */
+.stamp-section {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    background-color: #EEE;
+    text-align: center;
+}
+
+
+/* =============== title =============== */
+.stamp-title {
+    padding: 32px 0;
+}
+
+
+/* =============== content =============== */
+.stamp-attendance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stamp-rest {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stamp-item {
+    width: 350px;
+    height: 150px;
+    margin: 15px;
+}
+
+.stamp-item form button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 150px;
+    border: none;
+    border-radius: 3px;
+    background-color: #FFF;
+    font-weight: bold;
+}
+
+.stamp-item form button:hover {
+    cursor: pointer;
+    color: #DDD;
+}
+
+@media screen and (max-width:768px) {
+    .stamp-attendance {
+        display: block;
+    }
+
+    .stamp-rest {
+        display: block;
+    }
+
+    .stamp-item {
+        margin: 15px auto 0;
+        width: 100%;
+        height: 80px;
+    }
+
+    .stamp-item form button {
+        line-height: 80px;
+    }
+}
