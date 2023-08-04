@@ -42,18 +42,15 @@ class AuthController extends Controller
             // end_atがnullの場合は、現在時刻を挿入
             if ($attRec->end_at === null) {
                 // 日付を超えている場合
-                // if ($now->toTimeString() > '12:05:59') {
-                if ($now->toTimeString() > '23:59:59') {
+                if ($now->toDateString() !== session('attendance')->date_at) {
                     // 既存レコードの更新 ==============================
                     $attRec->update([
-                        // 'end_at' => $now->subDay()->toDateString() . ' 12:05:59',
                         'end_at' => $now->subDay()->toDateString() . ' 23:59:59',
                         'date_at' => $now->toDateString()
                     ]);
                     // 新規レコードの追加 ==============================
                     Attendance::create([
                         'user_id' => $attRec->user_id,
-                        // 'start_at' => $now->addDay()->toDateString() . ' 12:06:00', 
                         'start_at' => $now->addDay()->toDateString() . ' 00:00:00', 
                         'end_at' => $now->__toString(), 
                         'date_at' => $now->toDateString()
@@ -76,17 +73,14 @@ class AuthController extends Controller
             // restart_atがnullの場合は、現在時刻を挿入
             if ($resRec->restart_at === null) {
                 // 日付を超えている場合
-                // if ($now->toTimeString() > '12:05:59') {
-                if ($now->toTimeString() > '23:59:59') {
+                if ($now->toDateString() !== session('attendance')->date_at) {
                     // 既存レコードの更新 ==============================
                     $resRec->update([
-                        // 'restart_at' => '12:05:59'
                         'restart_at' => '23:59:59'
                     ]);
                     // 新規レコードの追加 ==============================
                     Rest::create([
                         'attendance_id' => Attendance::orderBy('id', 'desc')->first()->id,
-                        // 'break_at' => '12:06:00',
                         'break_at' => '00:00:00',
                         'restart_at' => $now->toTimeString()
                     ]);
