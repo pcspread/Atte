@@ -58,7 +58,7 @@ class AttendanceController extends Controller
 
         // もし日付が超えていた場合
         // if ($now->toTimeString() > '12:05:59') {
-        if ($now->toTimeString() > '23:59:59') {
+        if ($now->toDateString() !== $ses->date_at) {
             // 既存レコードのupdate処理
             Attendance::find($ses->id)->update([
                     // 前日の～23:59:59

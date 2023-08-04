@@ -59,7 +59,7 @@ class RestController extends Controller
 
         // もし日付を超えている場合
         // if ($now->toTimeString() > '12:05:59') {
-        if ($now->toTimeString() > '23:59:59') {
+        if ($now->toDateString() !== $sesAtt->date_at) {
             // 既存レコードのupdate処理 ==============================
                 // restレコード
                 Rest::find($sesRes->id)->update([
