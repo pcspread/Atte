@@ -36,9 +36,9 @@
                 <form action="/" method="POST">
                 @method('PATCH')
                 @csrf
-                    @if (session('attendance'))
+                    <!-- @if (session('attendance'))
                     <input type="hidden" name="id" value="{{ session('attendance')->id }}">
-                    @endif
+                    @endif -->
                     <button class="stamp-item__end" type="button">勤務終了</button>
                 </form>
             </div>
@@ -48,9 +48,9 @@
             <div class="stamp-item">
                 <form action="/rest" method="POST">
                 @csrf
-                    @if (session('attendance'))
+                    <!-- @if (session('attendance'))
                     <input type="hidden" name="id" value="{{ session('attendance')->id }}">
-                    @endif
+                    @endif -->
                     <button class="stamp-item__break" type="{{ session('comment') === '休憩中' ? 'button' : 'submit' }}">休憩開始</button>
                 </form>
             </div>
@@ -59,9 +59,6 @@
                 <form action="/rest" method="POST">
                 @method('PATCH')
                 @csrf
-                    @if (session('rest'))
-                    <input type="hidden" name="id" value="{{ session('rest')->id }}">
-                    @endif
                     <button class="stamp-item__restart">休憩終了</button>
                 </form>
             </div>

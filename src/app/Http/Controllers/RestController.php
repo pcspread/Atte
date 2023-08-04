@@ -15,27 +15,54 @@ class RestController extends Controller
 {
     /**
      * 休憩開始処理
-     * @param array $request 
+     * @param void
      * @return view
      */
-    public function store(Request $request)
+    public function store()
     {
-        // attendance_id情報を取得
-        $id = $request->id;
+        // Carbon情報の取得
+        $now = Carbon::now();
 
-        // 作成するレコード用の配列を用意
-        $rest = [
-            'attendance_id' => $id,
-            'break_at' => Carbon::now()->toTimeString()
-        ];
+        // セッション情報の取得
+        $sesAtt = session('attendance');
 
-        // create処理
-        if ($id) {
+        // 日付を超えている場合
+        if ($now->toDateString() !== $sesAtt->date_at) {
+            // 既存のattendanceレコード更新 ==============================
+            Attendance::find($sesAtt->id)->update([
+                'end_at' => $now->subDay()->toDateString() . ' 23:59:59',
+                'date_at' => $now->toDateString()
+            ]);
+            // 新規のattendanceレコード追加 ==============================
+            Attendance::create([
+                'user_id' => $sesAtt->user_id,
+                'start_at' => $now->addDay()->toDateString() . ' 00:00:00',
+                'date_at' => $now->toDateString()
+            ]);
+            // restレコードの追加 ==============================
+            Rest::create([
+                'attendance_id' => Attendance::orderBy('id', 'desc')->first()->id,
+                'break_at' => $now->toTimeString()
+            ]);
+            // セッション情報の更新(attendance)
+            // session()->put('attendance', Attendance::orderBy('id', 'desc')->first());
+        } else {
+            // attendance_id情報を取得
+            // $id = $request->id;
+
+            // 作成するレコード用の配列を用意
+            $rest = [
+                'attendance_id' => $sesAtt->id,
+                'break_at' => Carbon::now()->toTimeString()
+            ];
+
+            // create処理
             Rest::create($rest);
         }
 
         // 登録情報をセッション格納
         session()->put([
+            'attendance' => Attendance::orderBy('id', 'desc')->first(),
             'rest' => Rest::orderBy('id', 'desc')->first(),
             'comment' => '休憩中'
         ]);
