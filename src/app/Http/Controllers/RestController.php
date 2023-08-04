@@ -44,20 +44,12 @@ class RestController extends Controller
                 'attendance_id' => Attendance::orderBy('id', 'desc')->first()->id,
                 'break_at' => $now->toTimeString()
             ]);
-            // セッション情報の更新(attendance)
-            // session()->put('attendance', Attendance::orderBy('id', 'desc')->first());
         } else {
-            // attendance_id情報を取得
-            // $id = $request->id;
-
-            // 作成するレコード用の配列を用意
-            $rest = [
+            // create処理
+            Rest::create([
                 'attendance_id' => $sesAtt->id,
                 'break_at' => Carbon::now()->toTimeString()
-            ];
-
-            // create処理
-            Rest::create($rest);
+            ]);
         }
 
         // 登録情報をセッション格納
@@ -85,17 +77,14 @@ class RestController extends Controller
         $sesRes = session('rest');
 
         // もし日付を超えている場合
-        // if ($now->toTimeString() > '12:05:59') {
         if ($now->toDateString() !== $sesAtt->date_at) {
             // 既存レコードのupdate処理 ==============================
                 // restレコード
                 Rest::find($sesRes->id)->update([
-                    // 'restart_at' => '12:05:59'
                     'restart_at' => '23:59:59'
                 ]);
                 // attendanceレコード
                 Attendance::find($sesRes->attendance_id)->update([
-                    // 'end_at' => $now->subDay()->toDateString() . ' 12:05:59',
                     'end_at' => $now->subDay()->toDateString() . ' 23:59:59',
                     'date_at' => $now->toDateString()
                 ]);
@@ -103,14 +92,12 @@ class RestController extends Controller
                 // attendanceレコード
                 Attendance::create([
                     'user_id' => $sesAtt->user_id,
-                    // 'start_at' => $now->addDay()->toDateString() . ' 12:06:00',
                     'start_at' => $now->addDay()->toDateString() . ' 00:00:00',
                     'date_at' => $now->toDateString()
                 ]);
                 // restレコード
                 Rest::create([
                     'attendance_id' => Attendance::orderBy('id', 'desc')->first()->id,
-                    // 'break_at' => '12:06:00',
                     'break_at' => '00:00:00',
                     'restart_at' => $now->toTimeString()
                 ]);
