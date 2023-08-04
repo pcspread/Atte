@@ -27,7 +27,7 @@
                 <nav class="nav-content">
                     <ul class="nav-list">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/" class="nav-link">
                                 ホーム
                             </a>
                         </li>
@@ -39,6 +39,7 @@
                         <li class="nav-item">
                             <form class="nav-item__logout-form" action="/logout" method="POST">
                             @csrf
+                                <input type="hidden" name="id" value="{{ session('id') ?? '' }}">
                                 <button>ログアウト</button>
                             </form>
                         </li>
