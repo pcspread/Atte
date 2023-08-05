@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/attendance" class="nav-link">
                                 日付一覧
                             </a>
                         </li>

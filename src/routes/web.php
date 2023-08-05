@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function() {
      * attendance
      * ==================================================
      */
-    // view表示
+    // スタンプ(home)ページ表示
     Route::get('/', [AuthController::class, 'index']);
     
     // 社員出勤処理
@@ -51,6 +51,15 @@ Route::middleware('auth')->group(function() {
     Route::patch('/rest', [RestController::class, 'update']);
     
     
+    /**
+     * ==================================================
+     * attendance
+     * ==================================================
+     */
+    // 日付別勤怠ページ表示
+    Route::get('/attendance', [AttendanceController::class, 'listDate']);
+
+
     /**
      * ==================================================
      * other 
