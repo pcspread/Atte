@@ -55,7 +55,7 @@ date-section
 }
 
 .date-sub:hover {
-    background-color: #289ADC;
+    background-color: #0000FF;
     box-shadow: none;
     cursor: pointer;
 }
@@ -130,4 +130,49 @@ date-section
     .date-row__content {
         padding: 5px;
     }
+}
+
+
+/* =============== pagination =============== */
+.date-pagination {
+    padding-top: 15px;
+}
+
+.pagination {
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.page-link {
+    display: block;
+    height: 100%;
+    line-height: 35px;
+    padding: 0 15px;
+    border-right: 2px solid #DDD;
+    background-color: #FFF;
+    text-decoration: none;
+    color: #289ADC;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 305px) {
+    .page-link {
+        padding: 0 5px;
+    }
+}
+
+.page-item:first-of-type .page-link {
+    border-radius: 5px 0 0 5px;
+}
+
+.page-item:last-of-type .page-link {
+    border-radius: 0 5px 5px 0;
+    border-right: none;
+}
+
+.page-item a:hover {
+    background-color: #289ADC;
+    color: #FFF;
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // Model読込
 use App\Models\Attendance;
+use App\Models\User;
 // Auth読込
 use Illuminate\Support\Facades\Auth;
 // Carbon読込
@@ -96,6 +97,21 @@ class AttendanceController extends Controller
      */
     public function listDate()
     {
+        // アクセス時の日付を表示
+        $now = Carbon::now()->toDateString();
+
+        // 表示するデータの取得
+        $users = User::paginate(5);
+        // $users = User::with('attendances')->paginate(5);
+
+        // dd($users[0]['start_at']);
+
+        // セッションに必要情報を格納
+        session()->put([
+            'date' => $now,
+            'users' => $users
+        ]);
+
         return view('date');
     }
 }
