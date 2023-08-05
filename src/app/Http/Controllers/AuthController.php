@@ -12,8 +12,7 @@ use Carbon\Carbon;
 class AuthController extends Controller
 {
     /**
-     * view表示
-     * stamp.blade.php
+     * スタンプ(home)ページ表示
      * @param void
      * @return view
      */
@@ -23,8 +22,7 @@ class AuthController extends Controller
     }
 
     /**
-     * logout処理
-     * 退勤時間を更新
+     * 社員ログアウト処理
      * @param void
      * @return view
      */

@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+
+/* ==================================================
+date-section
+================================================== */
+.date-section {
+    height: 100%;
+    padding: 32px 100px;
+    background-color: #EEE;
+    text-align: center;
+}
+
+
+/* =============== title =============== */
+.date-title {
+    min-height: 30px;
+    margin: 0 auto 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-sub {
+    height: 22px;
+    padding: 0 10px;
+    border: 1px solid #289ADC;
+    border-radius: 2px;
+    box-shadow: 0 0 .5px 1px #CCC;
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+}
+
+.date-sub a {
+    width: 100%;
+    font-size: 20px;
+    color: #289ADC;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* .date-sub {
+    height: 22px;
+} */
+/* 
+.date-sub a {
+    height: 100%;
+    line-height: 22px;
+    padding: 0 10px;
+    border: 1px solid #289ADC;
+    border-radius: 2px;
+    box-shadow: 0 0 .5px 1px #CCC;
+    background-color: #FFF;
+    color: #289ADC;
+    text-decoration: none;
+    font-weight: bold;
+} */
+
+.date-sub:hover {
+    opacity: .8;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.date-main {
+    margin: 0 24px;
+}
+
+.date-main h2 {
+    font-size: 18px;
+}
+
+
+
+/* =============== content =============== */
+.date-content {
+    margin: 0 auto;
+}
+
+.date-table {
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.date-row {}
+
+.date-row__title {
+    padding: 18px 0 18px 24px;
+    width: 20%;
+    border-top: 1px solid #AAA;
+    font-size: 18px;
+}
+
+.date-row__content {
+    padding: 18px 0 18px 24px;
+    width: 20%;
+    border-top: 1px solid #AAA;
+}

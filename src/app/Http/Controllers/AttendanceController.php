@@ -88,4 +88,14 @@ class AttendanceController extends Controller
 
         return redirect('/');
     }
+
+    /**
+     * 日付別勤怠ページ表示
+     * @param void
+     * @return view
+     */
+    public function listDate()
+    {
+        return view('date');
+    }
 }
