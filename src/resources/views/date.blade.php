@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{ asset('css/date.css') }}">
 @endsection
 
+@section('js')
+<script src="{{ asset('js/date.js') }}" defer></script>
+@endsection
+
 @section('content')
 <div class="date-section">
     <div class="date-title">
@@ -11,7 +15,7 @@
             <a href=""><</a>
         </div>
         <div class="date-main">
-            <h2>2021-11-01</h2>
+            <h2>{{ session('date') ?? '表示できません' }}</h2>
         </div>
         <div class="date-sub">
             <a href="">></a>
@@ -28,16 +32,22 @@
                 <th class="date-row__title">勤務時間</th>
             </tr>
 
-            @for ($i = 0; $i < 5; $i++)
-            <tr class="date-row">
-                <td class="date-row__content">テスト太郎</td>
-                <td class="date-row__content">10:00:00</td>
-                <td class="date-row__content">20:00:00</td>
-                <td class="date-row__content">00:30:00</td>
-                <td class="date-row__content">09:30:00</td>
-            </tr>
-            @endfor
+            @if (session('users'))
+                @foreach (session('users') as $user)
+                <tr class="date-row">
+                    <td class="date-row__content">{{ $user->name }}</td>
+                    <td class="date-row__content">10:00:00</td>
+                    <td class="date-row__content">20:00:00</td>
+                    <td class="date-row__content">00:30:00</td>
+                    <td class="date-row__content">09:30:00</td>
+                </tr>
+                @endforeach
+            @endif
         </table>
+    </div>
+
+    <div class="date-pagination">
+        {{ session('users')->links('vendor.pagination.bootstrap-4') }}
     </div>
 </div>
 @endsection
