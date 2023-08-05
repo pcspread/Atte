@@ -30,11 +30,11 @@
 
             @for ($i = 0; $i < 5; $i++)
             <tr class="date-row">
-                <th class="date-row__content">テスト太郎</th>
-                <th class="date-row__content">10:00:00</th>
-                <th class="date-row__content">20:00:00</th>
-                <th class="date-row__content">00:30:00</th>
-                <th class="date-row__content">09:30:00</th>
+                <td class="date-row__content">テスト太郎</td>
+                <td class="date-row__content">10:00:00</td>
+                <td class="date-row__content">20:00:00</td>
+                <td class="date-row__content">00:30:00</td>
+                <td class="date-row__content">09:30:00</td>
             </tr>
             @endfor
         </table>

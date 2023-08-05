@@ -2,73 +2,88 @@
 
 
 /* ==================================================
+main
+================================================== */
+@media screen and (max-width: 305px) {
+    .main {
+        height: 100%;
+    }
+}
+
+
+/* ==================================================
 date-section
 ================================================== */
 .date-section {
     height: 100%;
-    padding: 32px 100px;
+    padding: 38px 75px;
     background-color: #EEE;
     text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .date-section {
+        padding: 38px 15px;
+    }
 }
 
 
 /* =============== title =============== */
 .date-title {
-    min-height: 30px;
-    margin: 0 auto 32px;
+    margin: 0 auto 38px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .date-sub {
-    height: 22px;
-    padding: 0 10px;
-    border: 1px solid #289ADC;
+    height: 25px;
+    border: 1px solid #0000FF;
     border-radius: 2px;
-    box-shadow: 0 0 .5px 1px #CCC;
+    box-shadow: 0 0 .5px .5px #CCC;
     background-color: #FFF;
     display: flex;
     align-items: center;
 }
 
 .date-sub a {
-    width: 100%;
+    padding: 0 10px;
     font-size: 20px;
-    color: #289ADC;
+    color: #0000FF;
     text-decoration: none;
     font-weight: bold;
 }
 
-/* .date-sub {
-    height: 22px;
-} */
-/* 
-.date-sub a {
-    height: 100%;
-    line-height: 22px;
-    padding: 0 10px;
-    border: 1px solid #289ADC;
-    border-radius: 2px;
-    box-shadow: 0 0 .5px 1px #CCC;
-    background-color: #FFF;
-    color: #289ADC;
-    text-decoration: none;
-    font-weight: bold;
-} */
-
 .date-sub:hover {
-    opacity: .8;
+    background-color: #289ADC;
     box-shadow: none;
     cursor: pointer;
 }
 
+.date-sub a:hover {
+    color: #FFF;
+}
+
 .date-main {
-    margin: 0 24px;
+    margin: 0 32px;
 }
 
 .date-main h2 {
-    font-size: 18px;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 480px) {
+    .date-main {
+        margin: 0 8px;
+    }
+
+    .date-sub {
+        height: 100%;
+    }
+
+    .date-sub a {
+        padding: 0 5px;
+    }
 }
 
 
@@ -84,17 +99,35 @@ date-section
     text-align: left;
 }
 
-.date-row {}
-
 .date-row__title {
-    padding: 18px 0 18px 24px;
+    padding: 18px 0 18px 32px;
     width: 20%;
     border-top: 1px solid #AAA;
-    font-size: 18px;
+    font-weight: bold;
+    text-shadow: .1px .1px #000;
 }
 
 .date-row__content {
-    padding: 18px 0 18px 24px;
+    padding: 18px 0 18px 32px;
     width: 20%;
     border-top: 1px solid #AAA;
+    color: #222;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .date-table {
+        text-align: center;
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+
+    .date-row__title {
+        padding: 5px;
+    }
+
+    .date-row__content {
+        padding: 5px;
+    }
 }
