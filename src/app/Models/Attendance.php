@@ -4,39 +4,81 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// Model読込
-use App\Models\Rest;
+// Carbon読込
+use Carbon\Carbon;
 
 class Attendance extends Model
 {
     use HasFactory;
     
+    
     // timestampsを無効にする
     public $timestamps = false;
+
 
     // 編集可能なカラムの設定
     protected $fillable = [
         'user_id', 'start_at', 'end_at', 'date_at'
     ];
 
-    /**
-     * 勤務時間の計算
-     */
-    // public function totalAttTime()
-    // {
-    //     $end = $this->end_at;
-    //     $start = $this->start_at;
-
-    //     $total = $end - $start;
-    //     return $total;
-    // }
 
     /**
      * リレーション設定
-     * restsテーブルから複数レコード取得
+     * restsテーブルと関連付け
      */
-    // public function rests()
-    // {
-    //     return $this->hasMany(Rest::class);
-    // }
+    public function rests()
+    {
+        return $this->hasMany(Rest::class);
+    }
+
+
+    /**
+     * リレーション設定
+     * usersテーブルと関係付け
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    /**
+     * datetime型のデータをdateに変換する
+     */
+    public function changeDate($element)
+    {
+        return Carbon::parse($element)->format('H:i:s');
+    }
+
+
+    /**
+     * 休憩時間を計算する
+     */
+    public function totalRes($arrayBreak, $arrayRestart)
+    {
+        // ベースの時間を設定
+        $base = Carbon::parse('00:00:00');
+
+        // 休憩時間を全てベース時間に加算
+        for ($i = 0; $i < count($arrayBreak); $i++) {
+            $breakTime = Carbon::parse($arrayBreak[$i]);
+            $restartTime = Carbon::parse($arrayRestart[$i]);
+            $total = $breakTime->diff($restartTime);
+
+            $base = $base->add($total);
+        }
+        return $base->format('H:i:s');
+    }
+
+
+    /**
+     * 勤務時間を計算する
+     */
+    public function totalAtt($start, $end)
+    {
+        $startTime = Carbon::parse($start);
+        $endTime = Carbon::parse($end);
+        $diff = $startTime->diff($endTime);
+        return $diff->format('%H:%I:%S');
+    }
 }
