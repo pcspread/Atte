@@ -133,6 +133,27 @@ date-section
 }
 
 
+/* =============== date-none =============== */
+.date-none {
+    width: 50%;
+    min-height: 52vh;
+    margin: 52px auto;
+    display: flex;
+    align-items: center;
+    line-height: 32vh;
+    background-color: #300FFF;
+    border-radius: 5px;
+    opacity: .6;
+}
+
+.date-none p {
+    margin: 0 auto;
+    padding: 15px;
+    font-size: 24px;
+    color: #FFF;
+}
+
+
 /* =============== pagination =============== */
 .date-pagination {
     padding-top: 15px;

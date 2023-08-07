@@ -12,9 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/layouts/app.css') }}" />
     @yield('css')
+    
     <script src="{{ asset('js/layouts/app.js') }}" defer></script>
     @yield('js')
 </head>
+
 <body>
     <div class="container">
         <header class="header">

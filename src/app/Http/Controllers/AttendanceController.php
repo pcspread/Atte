@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // Model読込
 use App\Models\Attendance;
-use App\Models\User;
 // Auth読込
 use Illuminate\Support\Facades\Auth;
 // Carbon読込
@@ -92,24 +91,30 @@ class AttendanceController extends Controller
 
     /**
      * 日付別勤怠ページ表示
-     * @param void
+     * @param array $request
      * @return view
      */
-    public function listDate()
-    {
-        // アクセス時の日付を表示
-        $now = Carbon::now()->toDateString();
+    public function listDate(Request $request)
+    {   
+        // 当日の日付を取得
+        $now = Carbon::now();
+        
+        // クエリパラメータがある場合
+        if (!empty($request->key)) {
+            // 日付をクエリパラメータの指定日へ変更
+            $now = Carbon::parse($now->year . '/' . $now->month . '/' . $request->key);
+        }
 
-        // 表示するデータの取得
-        $users = User::paginate(5);
-        // $users = User::with('attendances')->paginate(5);
-
-        // dd($users[0]['start_at']);
+        // 日付をstring型に変更
+        $now = $now->toDateString();
+    
+        // 表示する一覧データの取得
+        $attendances = Attendance::with('user', 'rests')->where('date_at', $now)->paginate(5);
 
         // セッションに必要情報を格納
         session()->put([
             'date' => $now,
-            'users' => $users
+            'attendances' => $attendances
         ]);
 
         return view('date');
