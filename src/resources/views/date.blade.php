@@ -16,13 +16,13 @@ use Carbon\Carbon;
 <div class="date-section">
     <div class="date-title">
         <div class="date-sub">
-            <a href="/attendance?key=1"><</a>
+            <a href="/attendance?key={{ Carbon::parse(session('date'))->subDay()->day }}"><</a>
         </div>
         <div class="date-main">
             <h2>{{ session('date') ?? '表示できません' }}</h2>
         </div>
         <div class="date-sub">
-            <a href="/attendance?key=2">></a>
+            <a href="/attendance?key={{ Carbon::parse(session('date'))->addDay()->day }}">></a>
         </div>
     </div>
 
@@ -67,7 +67,7 @@ use Carbon\Carbon;
     </div>
 
     <div class="date-pagination">
-        {{ session('attendances')->links('vendor.pagination.bootstrap-4') }}
+        {{ session('attendances')->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
     </div>
 </div>
 @endsection
