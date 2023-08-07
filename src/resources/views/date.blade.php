@@ -75,11 +75,11 @@ use Carbon\Carbon;
         @endif
     </div>
     
-
+    @if (session('attendances')[0])
     <div class="date-pagination">
         {{ session('attendances')->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
     </div>
+    @endif
 
-    
 </div>
 @endsection

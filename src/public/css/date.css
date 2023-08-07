@@ -4,7 +4,7 @@
 /* ==================================================
 main
 ================================================== */
-@media screen and (max-width: 305px) {
+@media screen and (max-width: 768px) {
     .main {
         height: 100%;
     }
@@ -16,6 +16,7 @@ date-section
 ================================================== */
 .date-section {
     height: 100%;
+    min-height: 84vh;
     padding: 38px 75px;
     background-color: #EEE;
     text-align: center;
@@ -24,6 +25,12 @@ date-section
 @media screen and (max-width: 768px) {
     .date-section {
         padding: 38px 15px;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .date-section {
+        padding: 15px;
     }
 }
 
@@ -76,14 +83,6 @@ date-section
     .date-main {
         margin: 0 8px;
     }
-
-    .date-sub {
-        height: 100%;
-    }
-
-    .date-sub a {
-        padding: 0 5px;
-    }
 }
 
 
@@ -135,7 +134,8 @@ date-section
 
 /* =============== date-none =============== */
 .date-none {
-    width: 50%;
+    width: 100%;
+    max-width: 500px;
     min-height: 52vh;
     margin: 52px auto;
     display: flex;
@@ -160,6 +160,7 @@ date-section
 }
 
 .pagination {
+    width: 100%;
     height: 35px;
     display: flex;
     justify-content: center;
@@ -168,6 +169,7 @@ date-section
 
 .page-link {
     display: block;
+    width: 100%;
     height: 100%;
     line-height: 35px;
     padding: 0 15px;
@@ -178,11 +180,11 @@ date-section
     font-weight: bold;
 }
 
-@media screen and (max-width: 305px) {
+/* @media screen and (max-width: 305px) {
     .page-link {
         padding: 0 5px;
     }
-}
+} */
 
 .page-item:first-of-type .page-link {
     border-radius: 5px 0 0 5px;
