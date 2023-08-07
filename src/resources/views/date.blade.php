@@ -58,7 +58,12 @@ use Carbon\Carbon;
                     {{ $attendance->totalRes($arrayBreak, $arrayRestart) }}
                 </td>
                 <td class="date-row__content">
-                    {{ $attendance->totalAtt($attendance->start_at, $attendance->end_at) }}
+                    @php
+                        $diffParent = Carbon::parse($attendance->totalAtt($attendance->start_at, $attendance->end_at));
+                        $diffChild = Carbon::parse($attendance->totalRes($arrayBreak, $arrayRestart));
+                        $diffTime = $diffParent->diff($diffChild);
+                    @endphp
+                    {{ $diffTime->format('%H:%I:%S') }}
                 </td>
             </tr>
             @endforeach
