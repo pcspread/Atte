@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* =======================================================
-all
+login-section
 ======================================================= */
 .login-section {
     height: 100%;
@@ -10,14 +10,9 @@ all
 }
 
 .login-form {
-    width: 35%;
+    width: 80%;
+    max-width: 480px;
     margin: 24px auto;
-}
-
-@media screen and (max-width: 768px) {
-    .login-form {
-        width: 80%;
-    }
 }
 
 .form-title {
