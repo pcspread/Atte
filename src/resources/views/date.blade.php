@@ -26,7 +26,8 @@ use Carbon\Carbon;
         </div>
     </div>
 
-    <div class="date-content">
+    <div class="date-content">    
+        @if (session('attendances')[0])
         <table class="date-table">
             <tr class="date-row">
                 <th class="date-row__title">名前</th>
@@ -35,39 +36,45 @@ use Carbon\Carbon;
                 <th class="date-row__title">休憩時間</th>
                 <th class="date-row__title">勤務時間</th>
             </tr>
-
-            @if (session('attendances'))
-                @foreach (session('attendances') as $attendance)
-                <tr class="date-row">
-                    <td class="date-row__content">{{ $attendance->user->name }}</td>
-                    <td class="date-row__content">
-                        {{ $attendance->changeDate($attendance->start_at) }}
-                    </td>
-                    <td class="date-row__content">
-                        {{ $attendance->changeDate($attendance->end_at) }}
-                    </td>
-                    <td class="date-row__content">
-                        @php
-                            $arrayBreak = [];
-                            $arrayRestart = [];
-                            foreach ($attendance->rests as $item) {
-                                $arrayBreak[] .= $item->break_at;
-                                $arrayRestart[] .= $item->restart_at;
-                            }
-                        @endphp
-                        {{ $attendance->totalRes($arrayBreak, $arrayRestart) }}
-                    </td>
-                    <td class="date-row__content">
-                        {{ $attendance->totalAtt($attendance->start_at, $attendance->end_at) }}
-                    </td>
-                </tr>
-                @endforeach
-            @endif
+            
+            @foreach (session('attendances') as $attendance)
+            <tr class="date-row">
+                <td class="date-row__content">{{ $attendance->user->name }}</td>
+                <td class="date-row__content">
+                    {{ $attendance->changeDate($attendance->start_at) }}
+                </td>
+                <td class="date-row__content">
+                    {{ $attendance->changeDate($attendance->end_at) }}
+                </td>
+                <td class="date-row__content">
+                    @php
+                        $arrayBreak = [];
+                        $arrayRestart = [];
+                        foreach ($attendance->rests as $item) {
+                            $arrayBreak[] .= $item->break_at;
+                            $arrayRestart[] .= $item->restart_at;
+                        }
+                    @endphp
+                    {{ $attendance->totalRes($arrayBreak, $arrayRestart) }}
+                </td>
+                <td class="date-row__content">
+                    {{ $attendance->totalAtt($attendance->start_at, $attendance->end_at) }}
+                </td>
+            </tr>
+            @endforeach
         </table>
+        @else
+        <div class="date-none">
+            <p>勤怠情報がありません</p>
+        </div>
+        @endif
     </div>
+    
 
     <div class="date-pagination">
         {{ session('attendances')->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
     </div>
+
+    
 </div>
 @endsection
