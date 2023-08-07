@@ -91,22 +91,24 @@ class AttendanceController extends Controller
 
     /**
      * 日付別勤怠ページ表示
-     * @param $date 日にち(当日は無)
+     * @param array $request
      * @return view
      */
     public function listDate(Request $request)
-    {
-        if (empty($key)) {
-            $now = Carbon::now()->toDateString();
-        }
+    {   
+        // 当日の日付を取得
+        $now = Carbon::now();
         
-        if ($key === 1) {
-            $now = Carbon::now()->subDay()->toDateString();
-        } elseif ($key === 2) {
-            $now = Carbon::now()->addDay()->toDateString();
+        // クエリパラメータがある場合
+        if (!empty($request->key)) {
+            // 日付をクエリパラメータの指定日へ変更
+            $now = Carbon::parse($now->year . '/' . $now->month . '/' . $request->key);
         }
+
+        // 日付をstring型に変更
+        $now = $now->toDateString();
     
-        // 表示するデータの取得
+        // 表示する一覧データの取得
         $attendances = Attendance::with('user', 'rests')->where('date_at', $now)->paginate(5);
 
         // セッションに必要情報を格納
