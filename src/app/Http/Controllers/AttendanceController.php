@@ -95,7 +95,10 @@ class AttendanceController extends Controller
      * @return view
      */
     public function listDate(Request $request)
-    {   
+    {  
+        // dd();
+        // (Carbon::parse(session('date'))->subDay()->day === Carbon::parse(session('date'))->startOfMonth()->day) ? Carbon::parse(session('date'))->subMonth()->toDateString() : Carbon::parse(session('date'))->subDay()->toDateString()
+
         // 当日の日付を取得
         $now = Carbon::now();
         

@@ -16,13 +16,15 @@ use Carbon\Carbon;
 <div class="date-section">
     <div class="date-title">
         <div class="date-sub">
-            <a href="/attendance?key={{ Carbon::parse(session('date'))->subDay()->day }}"><</a>
+            <a href="/attendance?key={{ 
+                (Carbon::parse(session('date'))->subDay()->day === Carbon::parse(session('date'))->startOfMonth()->day) ? Carbon::parse(session('date'))->subMonth()->toDateString() : Carbon::parse(session('date'))->subDay()->toDateString()
+             }}"><</a>
         </div>
         <div class="date-main">
             <h2>{{ session('date') ?? '表示できません' }}</h2>
         </div>
         <div class="date-sub">
-            <a href="/attendance?key={{ Carbon::parse(session('date'))->addDay()->day }}">></a>
+            <a href="/attendance}">></a>
         </div>
     </div>
 
