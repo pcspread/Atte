@@ -121,4 +121,14 @@ class AttendanceController extends Controller
 
         return view('date');
     }
+
+    /**
+     * 社員一覧ページ表示
+     * @param void
+     * @return view
+     */
+    public function listUser()
+    {
+        return view('list');
+    }
 }

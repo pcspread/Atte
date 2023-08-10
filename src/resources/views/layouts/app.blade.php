@@ -34,6 +34,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/attendance/list" class="nav-link">
+                                社員一覧
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/attendance" class="nav-link">
                                 日付一覧
                             </a>

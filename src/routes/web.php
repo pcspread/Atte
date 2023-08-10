@@ -59,6 +59,15 @@ Route::middleware('auth')->group(function() {
     // 日付別勤怠ページ表示
     Route::get('/attendance', [AttendanceController::class, 'listDate']);
 
+    
+    /**
+     * ==================================================
+     * list
+     * ==================================================
+     */
+    // 社員一覧ページ表示
+    Route::get('/attendance/list', [AttendanceController::class, 'listUser']);
+
 
     /**
      * ==================================================

@@ -15,12 +15,12 @@ function logoutColor() {
     const nav = document.querySelectorAll('.nav-item');
     const logout = document.querySelector('.nav-item__logout-form button')
 
-    nav[2].addEventListener('mouseover', function () {
+    nav[3].addEventListener('mouseover', function () {
         if (innerWidth < 480) {
             logout.style.backgroundColor = '#DDD';
         }
     });
-    nav[2].addEventListener('mouseleave', function () {
+    nav[3].addEventListener('mouseleave', function () {
         if (innerWidth < 480) {
             logout.style.backgroundColor = '#FFF';
         }
