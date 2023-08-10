@@ -24,7 +24,9 @@ use Carbon\Carbon;
             <h2>{{ session('date') ?? '表示できません' }}</h2>
         </div>
         <div class="date-sub">
-            <a href="/attendance}">></a>
+            <a href="/attendance?key={{
+                (Carbon::parse(session('date'))->addDay()->day === Carbon::parse(session('date'))->endOfMonth()->day) ? Carbon::parse(session('date'))->addMonth()->toDateString() : Carbon::parse(session('date'))->addDay()->toDateString()
+            }}">></a>
         </div>
     </div>
 

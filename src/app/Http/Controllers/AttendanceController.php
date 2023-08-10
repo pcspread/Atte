@@ -101,18 +101,29 @@ class AttendanceController extends Controller
 
         // 当日の日付を取得
         $now = Carbon::now();
+
+        // dd([$request->key, $now->toDateString()]);
+        // dd($now->toDateString());
         
-        // クエリパラメータがある場合
-        if (!empty($request->key)) {
-            // 日付をクエリパラメータの指定日へ変更
-            $now = Carbon::parse($now->year . '/' . $now->month . '/' . $request->key);
-        }
+        // // クエリパラメータがある場合
+        // if (!empty($request->key)) {
+        //     // 日付をクエリパラメータの指定日へ変更
+        //     $now = Carbon::parse($now->year . '/' . $now->month . '/' . $request->key);
+        // }
 
         // 日付をstring型に変更
-        $now = $now->toDateString();
+        // $now = $now->toDateString();
     
-        // 表示する一覧データの取得
-        $attendances = Attendance::with('user', 'rests')->where('date_at', $now)->paginate(5);
+        if ($request->key) {
+            $attendances = Attendance::with('user', 'rests')->where('date_at', $request->key)->paginate(5);
+            $keyDate = Carbon::parse($request->key);
+            $now = $keyDate->format('Y/m/d');
+        } else {
+            // 表示する一覧データの取得
+            $attendances = Attendance::with('user', 'rests')->where('date_at', $now->toDateString())->paginate(5);
+            $now = $now->format('Y/m/d');
+        }
+
 
         // セッションに必要情報を格納
         session()->put([
