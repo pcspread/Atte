@@ -17,7 +17,7 @@ use Carbon\Carbon;
     <div class="date-title">
         <div class="date-sub">
             <a href="/attendance?key={{ 
-                (Carbon::parse(session('date'))->subDay()->day === Carbon::parse(session('date'))->startOfMonth()->day) ? Carbon::parse(session('date'))->subMonth()->toDateString() : Carbon::parse(session('date'))->subDay()->toDateString()
+                (Carbon::parse(session('date'))->day === Carbon::parse(session('date'))->startOfMonth()->day) ? Carbon::parse(session('date'))->subMonth()->endOfMonth()->toDateString() : Carbon::parse(session('date'))->subDay()->toDateString()
              }}"><</a>
         </div>
         <div class="date-main">
@@ -25,7 +25,7 @@ use Carbon\Carbon;
         </div>
         <div class="date-sub">
             <a href="/attendance?key={{
-                (Carbon::parse(session('date'))->addDay()->day === Carbon::parse(session('date'))->endOfMonth()->day) ? Carbon::parse(session('date'))->addMonth()->toDateString() : Carbon::parse(session('date'))->addDay()->toDateString()
+                (Carbon::parse(session('date'))->day === Carbon::parse(session('date'))->endOfMonth()->day) ? Carbon::parse(session('date'))->addMonth()->startOfMonth()->toDateString() : Carbon::parse(session('date'))->addDay()->toDateString()
             }}">></a>
         </div>
     </div>
