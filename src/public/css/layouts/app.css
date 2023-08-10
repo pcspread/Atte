@@ -13,7 +13,7 @@ header
     align-items: center;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 599px) {
     .header {
         padding: 15px;
     }
@@ -66,7 +66,7 @@ header
     text-decoration-thickness: 2px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 599px) {
     .nav-list {
         display: none;
         flex-direction: column;
@@ -104,9 +104,9 @@ header
 
 /* =============== header-burger ===============*/
 .burger {
+    display: none;
     width: 32px;
     height: 25px;
-    display: none;
     z-index: 10;
 }
 
@@ -117,7 +117,7 @@ header
     transition: .3s;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 599px) {
     .burger {
         display: flex;
         flex-direction: column;
@@ -158,7 +158,6 @@ footer
     height: 5vh;
     line-height: 5vh;
     text-align: center;
-    ;
     background-color: #FFF;
     font-size: 12px;
     font-weight: bold;
