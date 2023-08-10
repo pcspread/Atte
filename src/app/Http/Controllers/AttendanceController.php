@@ -95,36 +95,24 @@ class AttendanceController extends Controller
      * @return view
      */
     public function listDate(Request $request)
-    {  
-        // dd();
-        // (Carbon::parse(session('date'))->subDay()->day === Carbon::parse(session('date'))->startOfMonth()->day) ? Carbon::parse(session('date'))->subMonth()->toDateString() : Carbon::parse(session('date'))->subDay()->toDateString()
-
+    {
         // 当日の日付を取得
         $now = Carbon::now();
-
-        // dd([$request->key, $now->toDateString()]);
-        // dd($now->toDateString());
-        
-        // // クエリパラメータがある場合
-        // if (!empty($request->key)) {
-        //     // 日付をクエリパラメータの指定日へ変更
-        //     $now = Carbon::parse($now->year . '/' . $now->month . '/' . $request->key);
-        // }
-
-        // 日付をstring型に変更
-        // $now = $now->toDateString();
     
+        // クエリパラメータがある場合
         if ($request->key) {
+            // 該当日のレコードを取得
             $attendances = Attendance::with('user', 'rests')->where('date_at', $request->key)->paginate(5);
+            // 表示用に該当日を格納
             $keyDate = Carbon::parse($request->key);
             $now = $keyDate->format('Y/m/d');
         } else {
-            // 表示する一覧データの取得
+            // 当日のレコードを取得
             $attendances = Attendance::with('user', 'rests')->where('date_at', $now->toDateString())->paginate(5);
+            // 当日の表示形式の変更
             $now = $now->format('Y/m/d');
         }
-
-
+        
         // セッションに必要情報を格納
         session()->put([
             'date' => $now,
