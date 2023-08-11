@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // Model読込
 use App\Models\Attendance;
+use App\Models\User;
 // Auth読込
 use Illuminate\Support\Facades\Auth;
 // Carbon読込
@@ -129,6 +130,10 @@ class AttendanceController extends Controller
      */
     public function listUser()
     {
-        return view('list');
+        // usersレコードを取得
+        $users = User::paginate(5);
+
+        return view('list', compact('users'));
     }
+
 }

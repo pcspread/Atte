@@ -61,12 +61,23 @@ class Attendance extends Model
 
         // 休憩時間を全てベース時間に加算
         for ($i = 0; $i < count($arrayBreak); $i++) {
+            // 休憩開始時間を格納
             $breakTime = Carbon::parse($arrayBreak[$i]);
-            $restartTime = Carbon::parse($arrayRestart[$i]);
+
+            // 「休憩終了」が押されていない場合
+            if (empty($restartTime)) {
+                // 休憩開始時間を格納
+                $restartTime = $breakTime;
+            } else {
+                // 休憩終了時間を格納
+                $restartTime = Carbon::parse($arrayRestart[$i]);
+            }
             $total = $breakTime->diff($restartTime);
 
             $base = $base->add($total);
         }
+
+        // 「休憩終了」が押されていない場合は、00:00:00を返す
         return $base->format('H:i:s');
     }
 

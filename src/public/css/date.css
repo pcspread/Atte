@@ -180,12 +180,6 @@ date-section
     font-weight: bold;
 }
 
-/* @media screen and (max-width: 305px) {
-    .page-link {
-        padding: 0 5px;
-    }
-} */
-
 .page-item:first-of-type .page-link {
     border-radius: 5px 0 0 5px;
 }
@@ -196,6 +190,11 @@ date-section
 }
 
 .page-item a:hover {
+    background-color: #289ADC;
+    color: #FFF;
+}
+
+.active .page-link {
     background-color: #289ADC;
     color: #FFF;
 }

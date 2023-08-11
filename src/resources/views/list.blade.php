@@ -13,7 +13,6 @@
     </div>
 
     <div class="list-content">    
-        @if (session('attendances')[0])
         <table class="list-table">
             <tr class="list-row">
                 <th class="list-row__title">ID</th>
@@ -22,31 +21,31 @@
                 <th class="list-row__title"></th>
             </tr>
             
-            @foreach (session('attendances') as $attendance)
-            <tr class="list-row">
-                <td class="list-row__content">{{ $attendance->user->name }}</td>
-                <td class="list-row__content">
-                    {{ $attendance->changelist($attendance->start_at) }}
-                </td>
-                <td class="list-row__content">
-                    {{ $attendance->changelist($attendance->end_at) }}
-                </td>
-                <td class="list-row__content">
-                </td>
-            </tr>
-            @endforeach
+            @if ($users)
+                @foreach ($users as $user)
+                <tr class="list-row">
+                    <td class="list-row__content">
+                        {{ $user['id'] }}
+                    </td>
+                    <td class="list-row__content">
+                        {{ $user['name'] }}
+                    </td>
+                    <td class="list-row__content">
+                        {{ $user['email'] }}
+                    </td>
+                    <td class="list-row__content">
+                        <div class="list-row__link">
+                            <a href="/attendance/partical?key={{ $user['id'] }}">勤怠詳細</a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            @endif
         </table>
-        @else
-        <div class="list-none">
-            <p>社員情報がありません</p>
-        </div>
-        @endif
     </div>
 
-    @if (session('attendances')[0])
     <div class="list-pagination">
-        {{ session('attendances')->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
+        {{ $users->links('vendor.pagination.bootstrap-4') }}
     </div>
-    @endif
 </div>
 @endsection

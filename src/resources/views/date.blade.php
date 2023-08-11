@@ -8,10 +8,6 @@ use Carbon\Carbon;
 <link rel="stylesheet" href="{{ asset('css/date.css') }}">
 @endsection
 
-@section('js')
-<script src="{{ asset('js/date.js') }}" defer></script>
-@endsection
-
 @section('content')
 <div class="date-section">
     <div class="date-title">
@@ -48,7 +44,7 @@ use Carbon\Carbon;
                     {{ $attendance->changeDate($attendance->start_at) }}
                 </td>
                 <td class="date-row__content">
-                    {{ $attendance->changeDate($attendance->end_at) }}
+                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '-' : $attendance->changeDate($attendance->end_at) }}
                 </td>
                 <td class="date-row__content">
                     @php
@@ -67,7 +63,7 @@ use Carbon\Carbon;
                         $diffChild = Carbon::parse($attendance->totalRes($arrayBreak, $arrayRestart));
                         $diffTime = $diffParent->diff($diffChild);
                     @endphp
-                    {{ $diffTime->format('%H:%I:%S') }}
+                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '-' : $diffTime->format('%H:%I:%S') }}
                 </td>
             </tr>
             @endforeach
