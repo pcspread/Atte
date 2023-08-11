@@ -97,6 +97,7 @@ header
 
     .nav-item__logout-form button:hover {
         opacity: 1;
+
         text-decoration: none;
     }
 }
