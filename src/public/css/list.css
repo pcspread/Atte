@@ -4,10 +4,9 @@
 /* ==================================================
 main
 ================================================== */
-@media screen and (max-width: 768px) {
-    .main {
-        height: 100%;
-    }
+.main {
+    height: 100%;
+    min-height: 84vh;
 }
 
 
@@ -147,50 +146,4 @@ list-section
     .list-row__content {
         padding: 10px 5px;
     }
-}
-
-
-/* =============== pagination =============== */
-.list-pagination {
-    padding-top: 15px;
-}
-
-.pagination {
-    width: 100%;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    border-radius: 5px;
-}
-
-.page-link {
-    display: block;
-    width: 100%;
-    height: 100%;
-    line-height: 35px;
-    padding: 0 15px;
-    border-right: 2px solid #DDD;
-    background-color: #FFF;
-    text-decoration: none;
-    color: #289ADC;
-    font-weight: bold;
-}
-
-.page-item:first-of-type .page-link {
-    border-radius: 5px 0 0 5px;
-}
-
-.page-item:last-of-type .page-link {
-    border-radius: 0 5px 5px 0;
-    border-right: none;
-}
-
-.page-item a:hover {
-    background-color: #289ADC;
-    color: #FFF;
-}
-
-.active .page-link {
-    background-color: #289ADC;
-    color: #FFF;
 }

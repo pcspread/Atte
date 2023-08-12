@@ -35,17 +35,13 @@
                     </td>
                     <td class="list-row__content">
                         <div class="list-row__link">
-                            <a href="/attendance/partical?key={{ $user['id'] }}">勤怠詳細</a>
+                            <a href="/attendance/parsonal?key={{ $user['id'] }}">勤怠詳細</a>
                         </div>
                     </td>
                 </tr>
                 @endforeach
             @endif
         </table>
-    </div>
-
-    <div class="list-pagination">
-        {{ $users->links('vendor.pagination.bootstrap-4') }}
     </div>
 </div>
 @endsection

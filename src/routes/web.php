@@ -68,6 +68,15 @@ Route::middleware('auth')->group(function() {
     // 社員一覧ページ表示
     Route::get('/attendance/list', [AttendanceController::class, 'listUser']);
 
+    
+    /**
+     * ==================================================
+     * parsonal
+     * ==================================================
+     */
+    // 社員別勤怠ページ表示
+    Route::get('/attendance/parsonal', [AttendanceController::class, 'listUserPart']);
+
 
     /**
      * ==================================================
