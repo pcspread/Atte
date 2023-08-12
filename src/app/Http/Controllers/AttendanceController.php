@@ -131,9 +131,47 @@ class AttendanceController extends Controller
     public function listUser()
     {
         // usersレコードを取得
-        $users = User::paginate(5);
+        $users = User::all();
 
         return view('list', compact('users'));
+    }
+
+    /**
+     * 社員別勤怠ページ表示
+     * @param array $request
+     * @return view
+     */
+    public function listUserPart(Request $request)
+    {
+        // 当日の日付を取得
+        $now = Carbon::now();
+        $user = User::find($request->key);
+
+        // クエリパラメータがある場合
+        // dd(Attendance::with('user', 'rests')->where('user_id', $request->key)->get()[0]->date_at);
+        if ($request->key && $request->date) {
+            $link = Carbon::parse($request->date);
+            // dd($link);
+            $attendances = Attendance::with('user', 'rests')->where([['user_id', $request->key], ['date_at', 'like', "%{$link->format('Y-m')}%"]])->get();
+            $now = Carbon::parse($request->date);
+        } elseif ($request->key) {
+            // 該当日のレコードを取得
+            $attendances = Attendance::with('user', 'rests')->where([['user_id', $request->key], ['date_at', 'like', "%{$now->month}%"]])->get();
+            // dd(Carbon::parse($attendances[0]->date_at)->month);
+            // 表示用に該当日を格納
+            // $keyDate = Carbon::parse($request->key);
+            // $now = $keyDate->format('Y/m/d');
+        }
+
+        // セッションに必要情報を格納
+        session()->put([
+            'date' => $now,
+            'user' => $user,
+            'attendances' => $attendances ?? ''
+        ]);
+        
+
+        return view('parsonal');
     }
 
 }
