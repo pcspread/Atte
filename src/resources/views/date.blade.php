@@ -44,26 +44,33 @@ use Carbon\Carbon;
                     {{ $attendance->changeDate($attendance->start_at) }}
                 </td>
                 <td class="date-row__content">
-                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '-' : $attendance->changeDate($attendance->end_at) }}
+                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $attendance->changeDate($attendance->end_at) }}
                 </td>
                 <td class="date-row__content">
                     @php
                         $arrayBreak = [];
                         $arrayRestart = [];
                         foreach ($attendance->rests as $item) {
-                            $arrayBreak[] .= $item->break_at;
-                            $arrayRestart[] .= $item->restart_at;
+                            $arrayBreak[] = $item->break_at;
+                            $arrayRestart[] = $item->restart_at;
                         }
+                        $restTime = $attendance->totalRes($arrayBreak, $arrayRestart);
                     @endphp
-                    {{ $attendance->totalRes($arrayBreak, $arrayRestart) }}
+                    {{ $restTime }}
                 </td>
                 <td class="date-row__content">
                     @php
                         $diffParent = Carbon::parse($attendance->totalAtt($attendance->start_at, $attendance->end_at));
-                        $diffChild = Carbon::parse($attendance->totalRes($arrayBreak, $arrayRestart));
+                       
+                        if (($restTime) === '(休憩中)') {
+                            $diffChild = Carbon::parse('00:00:00');
+                        } else {
+                            $diffChild = Carbon::parse($restTime);
+                        }
+
                         $diffTime = $diffParent->diff($diffChild);
                     @endphp
-                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '-' : $diffTime->format('%H:%I:%S') }}
+                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $diffTime->format('%H:%I:%S') }}
                 </td>
             </tr>
             @endforeach
