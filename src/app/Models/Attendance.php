@@ -59,26 +59,34 @@ class Attendance extends Model
         // ベースの時間を設定
         $base = Carbon::parse('00:00:00');
 
+        // 返す結果を初期化
+        $result = '';
+        
         // 休憩時間を全てベース時間に加算
-        for ($i = 0; $i < count($arrayBreak); $i++) {
+        for ($i = 0; $i < count($arrayBreak); $i++) {            
             // 休憩開始時間を格納
             $breakTime = Carbon::parse($arrayBreak[$i]);
 
             // 「休憩終了」が押されていない場合
-            if (empty($restartTime)) {
-                // 休憩開始時間を格納
-                $restartTime = $breakTime;
+            if (is_null($arrayRestart[$i])) {
+                $result = '(休憩中)';
             } else {
                 // 休憩終了時間を格納
                 $restartTime = Carbon::parse($arrayRestart[$i]);
+                // 休憩時間を計算
+                $total = $breakTime->diff($restartTime);
+                // 休憩時間を加算
+                $base = $base->add($total);
             }
-            $total = $breakTime->diff($restartTime);
-
-            $base = $base->add($total);
         }
 
+        // 休憩中でない場合は、休憩時間を格納
+        if ($result !== '(休憩中)') {
+            $result = $base->format('H:i:s');
+        }        
+
         // 「休憩終了」が押されていない場合は、00:00:00を返す
-        return $base->format('H:i:s');
+        return $result;
     }
 
 
@@ -89,6 +97,7 @@ class Attendance extends Model
     {
         $startTime = Carbon::parse($start);
         $endTime = Carbon::parse($end);
+        // 勤務時間を計算
         $diff = $startTime->diff($endTime);
         return $diff->format('%H:%I:%S');
     }
