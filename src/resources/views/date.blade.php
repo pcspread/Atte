@@ -39,13 +39,19 @@ use Carbon\Carbon;
             
             @foreach (session('attendances') as $attendance)
             <tr class="date-row">
-                <td class="date-row__content">{{ $attendance->user->name }}</td>
+                <!-- 名前 -->
+                <td class="date-row__content">
+                    {{ $attendance->user->name }}
+                </td>
+                <!-- 勤務開始 -->
                 <td class="date-row__content">
                     {{ $attendance->changeDate($attendance->start_at) }}
                 </td>
+                <!-- 勤務終了 -->
                 <td class="date-row__content">
                     {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $attendance->changeDate($attendance->end_at) }}
                 </td>
+                <!-- 休憩時間 -->
                 <td class="date-row__content">
                     @php
                         $arrayBreak = [];
@@ -58,6 +64,7 @@ use Carbon\Carbon;
                     @endphp
                     {{ $restTime }}
                 </td>
+                <!-- 勤務時間 -->
                 <td class="date-row__content">
                     @php
                         $diffParent = Carbon::parse($attendance->totalAtt($attendance->start_at, $attendance->end_at));
