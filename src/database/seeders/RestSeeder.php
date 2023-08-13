@@ -19,11 +19,9 @@ class RestSeeder extends Seeder
      */
     public function run()
     {
-        /**
-         * 3日前～1日前までのrestsレコード作成準備
-         */
+        // 各attendanceレコード用にrestsレコード作成(550レコード)
         $s = 0;
-        while ($s <= 20) {
+        while ($s <= 540) {
             // パターン1：45分休憩
             for ($i = $s + 1; $i <= $s + 3; $i++) {
                 $param = [

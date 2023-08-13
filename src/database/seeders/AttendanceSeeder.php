@@ -18,48 +18,26 @@ class AttendanceSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
-        // 3日前の日付でattendanceレコード作成準備
-        $baseDate = Carbon::now()->subDay();
-        $baseDate = $baseDate->subDay();
-        $threeDaysAgo = $baseDate->subDay();
+    {
+        // 1日前の日付を格納
+        $baseDate = Carbon::now()->subDay(55);
 
-        for ($i = 1; $i <= 10; $i++) {
-            $param = [
-                'user_id' => $i,
-                'start_at' => $threeDaysAgo->toDateString() . ' 09:00:00',
-                'end_at' => $threeDaysAgo->toDateString() . ' 18:00:00',
-                'date_at' => $threeDaysAgo->toDateString()
-            ];
-            DB::table('attendances')->insert($param);
-        }
-        
-
-        // 2日前の日付でattendanceレコード作成準備
-        $twoDaysAgo = $threeDaysAgo->addDay();
-
-        for ($i = 1; $i <= 10; $i++) {
-            $param = [
-                'user_id' => $i,
-                'start_at' => $twoDaysAgo->toDateString() . ' 09:00:00',
-                'end_at' => $twoDaysAgo->toDateString() . ' 18:00:00',
-                'date_at' => $twoDaysAgo->toDateString()
-            ];
-            DB::table('attendances')->insert($param);
-        }
-
-
-        // 2日前の日付でattendanceレコード作成準備
-        $yesterday = $twoDaysAgo->addDay();
-
-        for ($i = 1; $i <= 10; $i++) {
-            $param = [
-                'user_id' => $i,
-                'start_at' => $yesterday->toDateString() . ' 09:00:00',
-                'end_at' => $yesterday->toDateString() . ' 18:00:00',
-                'date_at' => $yesterday->toDateString() 
-            ];
-            DB::table('attendances')->insert($param);        
+        // レコードを3パターン(55日前まで)作成(550レコード)
+        $base = 1;
+        while ($base <= 55) {
+            // 1パターンを10レコード作成
+            for ($i = 1; $i <= 10; $i++) {
+                $param = [
+                    'user_id' => $i,
+                    'start_at' => $baseDate->toDateString() . ' 09:00:00',
+                    'end_at' => $baseDate->toDateString() . ' 18:00:00',
+                    'date_at' => $baseDate->toDateString()
+                ];
+                DB::table('attendances')->insert($param);
+            }
+            // 日付を加算
+            $baseDate = $baseDate->addDay();
+            $base++;
         }
     }
 }

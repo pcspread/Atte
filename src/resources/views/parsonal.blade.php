@@ -57,7 +57,7 @@ use Carbon\Carbon;
             <tr class="parsonal-row">
                 <!-- 日付 -->
                 <td class="parsonal-row__content">
-                    {{ Carbon::parse($attendance->date_at)->format('d日') }}
+                    {{ Carbon::parse($attendance->date_at)->isoFormat('D日(dd)') }}
                 </td>
                 <!-- 勤務開始 -->
                 <td class="parsonal-row__content">
