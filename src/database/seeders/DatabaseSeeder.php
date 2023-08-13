@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
         // usersレコード作成(10件)
         $this->call(UserSeeder::class);
 
-        // attendancesレコード作成(30件)
+        // attendancesレコード作成(600件)
         $this->call(AttendanceSeeder::class);
 
-        // restsレコード作成(30件)
+        // restsレコード作成(600件)
         $this->call(RestSeeder::class);
     }
 }
