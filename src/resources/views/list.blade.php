@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{ asset('css/list.css') }}">
 @endsection
 
+@section('js')
+<script src="{{ asset('js/list.js') }}" defer></script>
+@endsection
+
 @section('content')
 <div class="list-section">
     <div class="list-title">

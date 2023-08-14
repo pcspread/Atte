@@ -8,6 +8,10 @@ use Carbon\Carbon;
 <link rel="stylesheet" href="{{ asset('css/date.css') }}">
 @endsection
 
+@section('js')
+<script src="{{ asset('js/date.js') }}" defer></script>
+@endsection
+
 @section('content')
 <div class="date-section">
     <div class="date-title">
