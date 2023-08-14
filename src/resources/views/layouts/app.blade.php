@@ -66,6 +66,10 @@
             @yield('content')
         </main>
 
+        <div class="upper">
+            <a href="#"><</a>
+        </div>
+
         <footer class="footer">
             <small class="footer-content">
                 Atte, inc.

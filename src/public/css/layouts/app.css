@@ -158,6 +158,38 @@ main
 
 
 /* =======================================================
+main
+======================================================= */
+.upper {
+    display: none;
+    width: 45px;
+    height: 45px;
+    position: fixed;
+    bottom: 25px;
+    right: 15px;
+    opacity: .8;
+}
+
+.upper a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 45px;
+    text-align: center;
+    transform: rotate(90deg);
+    border-radius: 5px;
+    background-color: #CCC;
+    font-size: 32px;
+    color: #0000FF;
+    text-decoration: none;
+}
+
+.upper a:hover {
+    opacity: .5;
+}
+
+
+/* =======================================================
 footer
 ======================================================= */
 .footer-content {

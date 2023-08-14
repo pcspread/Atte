@@ -27,3 +27,16 @@ function logoutColor() {
     });
 }
 logoutColor();
+
+// scroll時にupper(上方移動ボタン)を出現させる
+function upper() {
+    const upper = document.querySelector('.upper');
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 0) {
+            upper.style.display = 'block';
+        } else {
+            upper.style.display = 'none';
+        }
+    });
+}
+upper();
