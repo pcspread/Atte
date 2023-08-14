@@ -47,7 +47,7 @@ use Carbon\Carbon;
                 <th class="parsonal-row__title">勤務終了</th>
                 <th class="parsonal-row__title rest-caption">休憩時間※
                     <div class="caption-content">
-                        各休憩時間の上にマウスをのせると、休憩詳細が表示されます
+                        各休憩時間の上にマウスをのせると、休憩時間の詳細が表示されます
                     </div>
                 </th>
                 <th class="parsonal-row__title">勤務時間</th>
