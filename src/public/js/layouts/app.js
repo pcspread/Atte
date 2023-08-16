@@ -13,7 +13,7 @@ burger();
 // navのログアウトボタンのhover時の設定
 function logoutColor() {
     const nav = document.querySelectorAll('.nav-item');
-    const logout = document.querySelector('.nav-item__logout-form button')
+    const logout = document.querySelector('.nav-link__button')
 
     nav[3].addEventListener('mouseover', function () {
         if (innerWidth < 599) {

@@ -21,7 +21,7 @@
     <div class="container">
         <header class="header">
             <div class="header-title">
-                <a href="">Atte</a>
+                <a class="header-title__link" href="">Atte</a>
             </div>
 
             @if (Auth::check())
@@ -29,25 +29,25 @@
                 <nav class="nav-content">
                     <ul class="nav-list">
                         <li class="nav-item">
-                            <a href="/" class="nav-link">
+                            <a class="nav-link" href="/">
                                 ホーム
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/attendance/list" class="nav-link">
+                            <a class="nav-link" href="/attendance/list">
                                 社員一覧
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/attendance" class="nav-link">
+                            <a class="nav-link" href="/attendance">
                                 日付一覧
                             </a>
                         </li>
                         <li class="nav-item">
                             <form class="nav-item__logout-form" action="/logout" method="POST">
                             @csrf
-                                <input type="hidden" name="id" value="{{ session('id') ?? '' }}">
-                                <button>ログアウト</button>
+                                <input class="nav-item__input-hidden" type="hidden" name="id" value="{{ session('id') ?? '' }}">
+                                <button class="nav-link__button">ログアウト</button>
                             </form>
                         </li>
                     </ul>
@@ -67,7 +67,7 @@
         </main>
 
         <div class="upper">
-            <a href="#"><</a>
+            <a class="upper-link" href="#"><</a>
         </div>
 
         <footer class="footer">

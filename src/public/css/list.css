@@ -57,7 +57,6 @@ list-section
 }
 
 
-
 /* =============== content =============== */
 .list-content {
     margin: 0 auto;
@@ -99,6 +98,8 @@ list-section
     width: 35%;
 }
 
+
+/* =============== button =============== */
 .list-row__content:nth-of-type(4) {
     width: 15%;
     padding: 5px;
@@ -127,7 +128,7 @@ list-section
 }
 
 .list-row__link a:hover {
-    opacity: .8;
+    background-color: #333;
     box-shadow: none;
 }
 

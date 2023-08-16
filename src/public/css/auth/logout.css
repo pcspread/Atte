@@ -14,16 +14,16 @@
     text-align: center;
 }
 
-.logout-content h2 {
+.logout-content__title {
     font-size: 18px;
     margin: 5px;
 }
 
-.logout-content p {
+.logout-content__caption {
     margin: 15px;
 }
 
-.logout-content a {
+.logout-content__link {
     max-width: 180px;
     margin: 15px;
     padding: 11px 24px;
@@ -33,6 +33,6 @@
     color: #FFF;
 }
 
-.logout-content a:hover {
+.logout-content__link:hover {
     opacity: .8;
 }

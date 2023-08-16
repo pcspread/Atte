@@ -16,8 +16,11 @@ login-section
 }
 
 .form-title {
-    padding: 5px;
     margin-bottom: 15px;
+}
+
+.form-title__text {
+    padding: 5px;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -31,7 +34,7 @@ login-section
 
 
 /* =============== input =============== */
-.login-input input {
+.login-input__item {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -59,7 +62,7 @@ login-section
     width: 100%;
 }
 
-.login-button button {
+.login-button__item {
     width: 100%;
     padding: 8px;
     margin: 5px auto 10px;
@@ -72,7 +75,7 @@ login-section
     font-weight: bold;
 }
 
-.login-button button:hover {
+.login-button__item:hover {
     cursor: pointer;
     opacity: .8;
 }
@@ -83,12 +86,12 @@ login-section
     text-align: center;
 }
 
-.register-comment p {
+.register-comment__text {
     font-size: 14px;
     color: #888;
 }
 
-.register-link a {
+.register-link__text {
     display: block;
     text-decoration: none;
     font-size: 14px;

@@ -9,14 +9,13 @@
     <form class="register-form" action="/register" method="POST">
     @csrf
         <div class="form-title">
-            会員登録
+            <h1 class="form-title__text">会員登録</h1>    
         </div>
         
         <div class="register-content">
-            <!-- name -->
             <div class="register-item">
                 <div class="register-input">
-                    <input type="name" name="name" value="{{ old('name') }}" placeholder="名前" autofocus />
+                    <input class="register-input__item" type="name" name="name" value="{{ old('name') }}" placeholder="名前" autofocus />
                 </div>
 
                 <div class="register-error">
@@ -26,10 +25,9 @@
                 </div>
             </div>
 
-            <!-- email -->
             <div class="register-item">
                 <div class="register-input">
-                    <input type="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス" />
+                    <input class="register-input__item" type="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス" />
                 </div>
 
                 <div class="register-error">
@@ -39,10 +37,9 @@
                 </div>
             </div>
 
-            <!-- password -->
             <div class="register-item">
                 <div class="register-input">
-                    <input type="password" name="password" value="{{ old('password') }}" placeholder="パスワード" />
+                    <input class="register-input__item" type="password" name="password" value="{{ old('password') }}" placeholder="パスワード" />
                 </div>
 
                 <div class="register-error">
@@ -52,28 +49,25 @@
                 </div>
             </div>
 
-            <!-- password-confirmaion -->
             <div class="register-item">
                 <div class="register-input">
-                    <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="確認用パスワード" />
+                    <input class="register-input__item" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="確認用パスワード" />
                 </div>
             </div>
 
-            <!-- button -->
             <div class="register-item">
                 <div class="register-button">
-                    <button>会員登録</button>
+                    <button class="register-button__item">会員登録</button>
                 </div>
             </div>
 
-            <!-- loginへ -->
             <div class="register-item">
                 <div class="login-comment">
-                    <p>アカウントをお持ちの方はこちらから</p>
+                    <p class="login-comment__text">アカウントをお持ちの方はこちらから</p>
                 </div>
 
                 <div class="login-link">
-                    <a href="/login">ログイン</a>
+                    <a class="login-link__text" href="/login">ログイン</a>
                 </div>
             </div>
         </div>

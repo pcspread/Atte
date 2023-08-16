@@ -24,11 +24,7 @@ use App\Http\Controllers\RestController;
  * ==================================================
  */
 Route::middleware('auth')->group(function() {
-    /**
-     * ==================================================
-     * attendance
-     * ==================================================
-     */
+
     // スタンプ(home)ページ表示
     Route::get('/', [AuthController::class, 'index']);
     
@@ -56,33 +52,18 @@ Route::middleware('auth')->group(function() {
      * attendance
      * ==================================================
      */
-    // 日付別勤怠ページ表示
-    Route::get('/attendance', [AttendanceController::class, 'listDate']);
+    Route::prefix('/attendance')->group(function() {
+        // 日付別勤怠ページ表示
+        Route::get('/', [AttendanceController::class, 'listDate']);
+        
+        // 社員一覧ページ表示
+        Route::get('/list', [AttendanceController::class, 'listUser']);
+        
+        // 社員別勤怠ページ表示
+        Route::get('/personal', [AttendanceController::class, 'listUserPart']);
+    });
 
     
-    /**
-     * ==================================================
-     * list
-     * ==================================================
-     */
-    // 社員一覧ページ表示
-    Route::get('/attendance/list', [AttendanceController::class, 'listUser']);
-
-    
-    /**
-     * ==================================================
-     * parsonal
-     * ==================================================
-     */
-    // 社員別勤怠ページ表示
-    Route::get('/attendance/parsonal', [AttendanceController::class, 'listUserPart']);
-
-
-    /**
-     * ==================================================
-     * other 
-     * ==================================================
-     */ 
     // ログアウト処理
     Route::post('/logout', [AuthController::class, 'logout']); 
 });
