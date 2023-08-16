@@ -14,7 +14,6 @@ all
 register-section
 ======================================================= */
 .register-section {
-    height: 100%;
     min-height: 84vh;
     background-color: #EEE;
     padding: 15px;
@@ -28,8 +27,11 @@ register-section
 }
 
 .form-title {
-    padding: 5px;
     margin-bottom: 15px;
+}
+
+.form-title__text {
+    padding: 5px;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -43,7 +45,7 @@ register-section
 
 
 /* =============== input =============== */
-.register-input input {
+.register-input__item {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -72,7 +74,7 @@ register-section
     width: 100%;
 }
 
-.register-button button {
+.register-button__item {
     width: 100%;
     padding: 8px;
     margin: 5px auto 10px;
@@ -85,7 +87,7 @@ register-section
     font-weight: bold;
 }
 
-.register-button button:hover {
+.register-button__item:hover {
     cursor: pointer;
     opacity: .8;
 }
@@ -96,12 +98,12 @@ register-section
     text-align: center;
 }
 
-.login-comment p {
+.login-comment__text {
     font-size: 14px;
     color: #888;
 }
 
-.login-link a {
+.login-link__text {
     display: block;
     text-decoration: none;
     font-size: 14px;

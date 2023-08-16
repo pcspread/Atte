@@ -153,6 +153,7 @@ class AttendanceController extends Controller
 
         // 該当IDのレコードを取得
         $user = User::find($request->key);
+        $users = User::where('id', '!=', $request->key)->get();
 
         // クエリパラメータ(date)がある場合
         if ($request->date) {
@@ -168,11 +169,12 @@ class AttendanceController extends Controller
         session()->put([
             'date' => $now,
             'user' => $user,
+            'users' => $users,
             'attendances' => $attendances ?? ''
         ]);
         
 
-        return view('parsonal');
+        return view('personal');
     }
 
 }

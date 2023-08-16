@@ -9,14 +9,13 @@
     <form class="login-form" action="/login" method="POST">
     @csrf
         <div class="form-title">
-            ログイン
+            <h1 class="form-title__text">ログイン</h1>
         </div>
         
         <div class="login-content">
-            <!-- email -->
             <div class="login-item">
                 <div class="login-input">
-                    <input type="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス" autofocus />
+                    <input class="login-input__item" type="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス" autofocus />
                 </div>
 
                 <div class="login-error">
@@ -26,10 +25,9 @@
                 </div>
             </div>
 
-            <!-- password -->
             <div class="login-item">
                 <div class="login-input">
-                    <input type="password" name="password" value="{{ old('password') }}" placeholder="パスワード" />
+                    <input class="login-input__item" type="password" name="password" value="{{ old('password') }}" placeholder="パスワード" />
                 </div>
 
                 <div class="login-error">
@@ -39,21 +37,19 @@
                 </div>
             </div>
 
-            <!-- button -->
             <div class="login-item">
                 <div class="login-button">
-                    <button>ログイン</button>
+                    <button class="login-button__item">ログイン</button>
                 </div>
             </div>
 
-            <!-- registerへ -->
             <div class="login-item">
                 <div class="register-comment">
-                    <p>アカウントをお持ちでない方はこちらから</p>
+                    <p class="register-comment__text">アカウントをお持ちでない方はこちらから</p>
                 </div>
 
                 <div class="register-link">
-                    <a href="/register">会員登録</a>
+                    <a  class="register-link__text" href="/register">会員登録</a>
                 </div>
             </div>
         </div>

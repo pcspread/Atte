@@ -6,7 +6,6 @@ function hoverRec() {
         // 該当レコードを変色
         record.addEventListener('mouseover', function () {
             if (this !== records[0]) {
-                this.style.cursor = 'pointer';
                 this.style.backgroundColor = '#CCC';
             }
         });
