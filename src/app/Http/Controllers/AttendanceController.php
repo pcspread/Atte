@@ -100,17 +100,20 @@ class AttendanceController extends Controller
         // 当日の日付を取得
         $now = Carbon::now();
 
-        // クエリパラメータがdate型でない場合
-        if (!strptime($request->key, '%Y-%m-%d')) {
+        // クエリパラメータ(date)を取得
+        $date = $request->date;
+
+        // クエリパラメータがdate型でない場合(未関係の文字を入力された場合)
+        if (!strptime($date, '%Y-%m-%d')) {
             // 当日のレコードを取得
             $attendances = Attendance::with('user', 'rests')->where('date_at', $now->toDateString())->paginate(5);
             // 当日の表示形式の変更
             $now = $now->format('Y/m/d');
         } else {
             // 該当日のレコードを取得
-            $attendances = Attendance::with('user', 'rests')->where('date_at', $request->key)->paginate(5);
+            $attendances = Attendance::with('user', 'rests')->where('date_at', $date)->paginate(5);
             // 表示用に該当日を格納
-            $keyDate = Carbon::parse($request->key);
+            $keyDate = Carbon::parse($date);
             $now = $keyDate->format('Y/m/d');
         }
         
@@ -146,28 +149,32 @@ class AttendanceController extends Controller
         // 当日の日付を取得
         $now = Carbon::now();
 
-        // クエリパラメータ(key)が無い、もしくは数字で無い場合
-        if (empty($request->key) || !is_numeric($request->key)) {
+        // クエリパラメータを取得
+        $user_id = $request->id; // id
+        $month = $request->month; // month
+
+        // $user_idが無い、もしくは数字で無い場合(未関係の文字を入力された場合)
+        if (empty($user_id) || !is_numeric($user_id)) {
             return redirect('/attendance/list');
         }
 
         // 該当IDのレコードを取得
-        $user = User::find($request->key);
-        $users = User::where('id', '!=', $request->key)->get();
+        $user = User::find($user_id);
+        $users = User::where('id', '!=', $user_id)->get();
 
-        // クエリパラメータ(date)がある場合
-        if ($request->date) {
+        // $monthがある場合
+        if ($month) {
             // 該当日のレコードを取得
-            $link = Carbon::parse($request->date);
-            $attendances = Attendance::with('user', 'rests')->where([['user_id', $request->key], ['date_at', 'like', "%{$link->format('Y-m')}%"]])->orderBy('date_at', 'asc')->get();
-            $now = Carbon::parse($request->date);
+            $link = Carbon::parse($month);
+            $attendances = Attendance::with('user', 'rests')->where([['user_id', $user_id], ['date_at', 'like', "%{$link->format('Y-m')}%"]])->orderBy('date_at', 'asc')->get();
+            $now = Carbon::parse($month);
         } else {
-            $attendances = Attendance::with('user', 'rests')->where([['user_id', $request->key], ['date_at', 'like', "%{$now->format('Y-m')}%"]])->orderBy('date_at', 'asc')->get();
+            $attendances = Attendance::with('user', 'rests')->where([['user_id', $user_id], ['date_at', 'like', "%{$now->format('Y-m')}%"]])->orderBy('date_at', 'asc')->get();
         }
 
         // セッションに必要情報を格納
         session()->put([
-            'date' => $now,
+            'month' => $now,
             'user' => $user,
             'users' => $users,
             'attendances' => $attendances ?? ''

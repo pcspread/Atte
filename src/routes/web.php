@@ -24,11 +24,11 @@ use App\Http\Controllers\RestController;
  * auth
  * ==================================================
  */
-Route::middleware(['auth', 'verified'])->group(function() {
+// Route::middleware(['auth', 'verified'])->group(function() {
 // Route::middleware('verified')->group(function() {
-    Route::get('/dashboard', [AuthenticatedSessionController::class, 'index']);
+    // Route::get('/dashboard', [AuthenticatedSessionController::class, 'index']);
 
-    // Route::middleware('auth')->group(function() {
+    Route::middleware('auth')->group(function() {
                 
         // スタンプ(home)ページ表示
         Route::get('/', [AuthController::class, 'index']);
