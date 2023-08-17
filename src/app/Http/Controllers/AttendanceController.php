@@ -60,7 +60,7 @@ class AttendanceController extends Controller
         // セッション情報の格納
         $ses = session('attendance');
 
-        // もし日付が超えていた場合
+        // 日付が超えていた場合の処理
         if ($now->toDateString() !== $ses->date_at) {
             // 既存レコードのupdate処理
             Attendance::find($ses->id)->update([
@@ -139,7 +139,7 @@ class AttendanceController extends Controller
     /**
      * 社員別勤怠ページ表示
      * @param array $request
-     * @return view
+     * @return redirect,view
      */
     public function listUserPart(Request $request)
     {

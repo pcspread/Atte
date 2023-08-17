@@ -5,7 +5,7 @@ function displayNone() {
     const nav = document.querySelector('.header-nav');
     const burger = document.querySelector('.burger');
 
-    if (location.pathname === '/logout') {
+    if (location.pathname === '/email/verify') {
         nav.style.display = 'none';
         burger.style.display = 'none';
     }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/list.css') }}">
+<link rel="stylesheet" href="{{ asset('css/list.css') }}" />
 @endsection
 
 @section('js')
@@ -12,7 +12,7 @@
 <div class="list-section">
     <div class="list-title">
         <div class="list-main">
-            <h2>社員一覧</h2>
+            <h2 class="list-main__text">社員一覧</h2>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
                     </td>
                     <td class="list-row__content">
                         <div class="list-row__link">
-                            <a href="/attendance/personal?key={{ $user['id'] }}">勤怠詳細</a>
+                            <a class="list-row__link-text" href="/attendance/personal?key={{ $user['id'] }}">勤怠詳細</a>
                         </div>
                     </td>
                 </tr>

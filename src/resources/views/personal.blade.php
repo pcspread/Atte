@@ -5,7 +5,7 @@ use Carbon\Carbon;
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/personal.css') }}">
+<link rel="stylesheet" href="{{ asset('css/personal.css') }}" />
 @endsection
 
 @section('js')
@@ -15,30 +15,31 @@ use Carbon\Carbon;
 @section('content')
 <div class="personal-section">
     <div class="personal-title">
-        <div class="personal-main">
-            <h2>勤怠情報</h2>
-        </div>
+        <h1 class="personal-title__text">勤怠情報</h1>
     </div>
 
     <div class="personal-information">
+        <!-- 社員名 -->
         <div class="information-name">
-            <h3>{{ (session('user')) ? session('user')->name . 'さん' : '表示できません' }}🔽</h3>
+            <h2 class="information-name__main">{{ (session('user')) ? session('user')->name . 'さん' : '表示できません' }}🔽</h2>
+
             <div class="information-name__list">
                 @foreach (session('users') as $person)
-                <a href="/attendance/personal?key={{ $person['id'] }}">{{ $person['name'] }} さん</a>
+                <a class="information-name__list-link" href="/attendance/personal?key={{ $person['id'] }}">{{ $person['name'] }} さん</a>
                 @endforeach
             </div>
         </div>
 
+        <!-- 年月 -->
         <div class="information-date">
-            <div class="date-sub">
-                <a href="/attendance/personal?key={{ session('user')->id }}&date={{ Carbon::parse(session('date'))->subMonth()->format('Y-m') }}"><</a>
+            <div class="information-date__sub">
+                <a class="information-date__sub-link" href="/attendance/personal?key={{ session('user')->id }}&date={{ Carbon::parse(session('date'))->subMonth()->format('Y-m') }}"><</a>
             </div>
-            <div class="date-main">
-                <h2>{{ session('date')->format('Y月m日') ?? '表示できません' }}</h2>
+            <div class="information-date__main">
+                <h3 class="information-date__main-title">{{ session('date')->format('Y月m日') ?? '表示できません' }}</h3>
             </div>
-            <div class="date-sub">
-                <a href="/attendance/personal?key={{ session('user')->id }}&date={{ Carbon::parse(session('date'))->addMonth()->format('Y-m') }}">></a>
+            <div class="information-date__sub">
+                <a class="information-date__sub-link" href="/attendance/personal?key={{ session('user')->id }}&date={{ Carbon::parse(session('date'))->addMonth()->format('Y-m') }}">></a>
             </div>
         </div>
     </div>
@@ -64,14 +65,17 @@ use Carbon\Carbon;
                 <td class="personal-row__content">
                     {{ Carbon::parse($attendance->date_at)->isoFormat('D日(dd)') }}
                 </td>
+                
                 <!-- 勤務開始 -->
                 <td class="personal-row__content">
                     {{ Carbon::parse($attendance->start_at)->format('H:i:s') }}
                 </td>
+                
                 <!-- 勤務終了 -->
                 <td class="personal-row__content">
                     {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $attendance->changeDate($attendance->end_at) }}
                 </td>
+
                 <!-- 休憩時間 -->
                 <td class="personal-row__content rest-time">
                     @php
@@ -98,6 +102,7 @@ use Carbon\Carbon;
                         @endphp
                     </div>
                 </td>
+                
                 <!-- 勤務時間 -->
                 <td class="personal-row__content">
                     @php
@@ -119,7 +124,7 @@ use Carbon\Carbon;
     </div>
     @else
     <div class="personal-none">
-        <p>勤怠情報がありません</p>
+        <p class="personal-none__text">勤怠情報がありません</p>
     </div>
     @endif
 </div>

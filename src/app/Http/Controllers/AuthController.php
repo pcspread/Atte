@@ -41,12 +41,12 @@ class AuthController extends Controller
             if ($attRec->end_at === null) {
                 // 日付を超えている場合
                 if ($now->toDateString() !== session('attendance')->date_at) {
-                    // 既存レコードの更新 ==============================
+                    // 既存レコードの更新
                     $attRec->update([
                         'end_at' => $now->subDay()->toDateString() . ' 23:59:59',
                         'date_at' => $now->toDateString()
                     ]);
-                    // 新規レコードの追加 ==============================
+                    // 新規レコードの追加
                     Attendance::create([
                         'user_id' => $attRec->user_id,
                         'start_at' => $now->addDay()->toDateString() . ' 00:00:00', 
@@ -72,11 +72,11 @@ class AuthController extends Controller
             if ($resRec->restart_at === null) {
                 // 日付を超えている場合
                 if ($now->toDateString() !== session('attendance')->date_at) {
-                    // 既存レコードの更新 ==============================
+                    // 既存レコードの更新
                     $resRec->update([
                         'restart_at' => '23:59:59'
                     ]);
-                    // 新規レコードの追加 ==============================
+                    // 新規レコードの追加
                     Rest::create([
                         'attendance_id' => Attendance::orderBy('id', 'desc')->first()->id,
                         'break_at' => '00:00:00',

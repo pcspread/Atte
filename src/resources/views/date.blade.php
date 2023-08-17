@@ -1,11 +1,11 @@
-@extends('layouts.app')
-
 @php
 use Carbon\Carbon;
 @endphp
 
+@extends('layouts.app')
+
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/date.css') }}">
+<link rel="stylesheet" href="{{ asset('css/date.css') }}" />
 @endsection
 
 @section('js')
@@ -15,16 +15,18 @@ use Carbon\Carbon;
 @section('content')
 <div class="date-section">
     <div class="date-title">
-        <div class="date-sub">
-            <a href="/attendance?key={{ 
+        <div class="date-title__sub">
+            <a class="date-title__sub-link" href="/attendance?key={{ 
                 (Carbon::parse(session('date'))->day === Carbon::parse(session('date'))->startOfMonth()->day) ? Carbon::parse(session('date'))->subMonth()->endOfMonth()->toDateString() : Carbon::parse(session('date'))->subDay()->toDateString()
              }}"><</a>
         </div>
-        <div class="date-main">
-            <h2>{{ session('date') ?? '表示できません' }}</h2>
+
+        <div class="date-title__main">
+            <h1 class="date-title__main-text">{{ session('date') ?? '表示できません' }}</h1>
         </div>
-        <div class="date-sub">
-            <a href="/attendance?key={{
+
+        <div class="date-title__sub">
+            <a class="date-title__sub-link" href="/attendance?key={{
                 (Carbon::parse(session('date'))->day === Carbon::parse(session('date'))->endOfMonth()->day) ? Carbon::parse(session('date'))->addMonth()->startOfMonth()->toDateString() : Carbon::parse(session('date'))->addDay()->toDateString()
             }}">></a>
         </div>
@@ -47,14 +49,17 @@ use Carbon\Carbon;
                 <td class="date-row__content">
                     {{ $attendance->user->name }}
                 </td>
+
                 <!-- 勤務開始 -->
                 <td class="date-row__content">
                     {{ $attendance->changeDate($attendance->start_at) }}
                 </td>
+                
                 <!-- 勤務終了 -->
                 <td class="date-row__content">
                     {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $attendance->changeDate($attendance->end_at) }}
                 </td>
+                
                 <!-- 休憩時間 -->
                 <td class="date-row__content">
                     @php
@@ -68,6 +73,7 @@ use Carbon\Carbon;
                     @endphp
                     {{ $restTime }}
                 </td>
+                
                 <!-- 勤務時間 -->
                 <td class="date-row__content">
                     @php
@@ -88,7 +94,7 @@ use Carbon\Carbon;
         </table>
         @else
         <div class="date-none">
-            <p>勤怠情報がありません</p>
+            <p class="date-none__text">勤怠情報がありません</p>
         </div>
         @endif
     </div>

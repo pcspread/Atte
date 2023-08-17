@@ -39,7 +39,10 @@ stamp
     margin: 15px;
 }
 
-.stamp-item form button {
+.stamp-item__start,
+.stamp-item__end,
+.stamp-item__break,
+.stamp-item__restart {
     display: block;
     width: 100%;
     height: 100%;
@@ -50,7 +53,10 @@ stamp
     font-weight: bold;
 }
 
-.stamp-item form button:hover {
+.stamp-item__start:hover,
+.stamp-item__end:hover,
+.stamp-item__break:hover,
+.stamp-item__restart:hover {
     cursor: pointer;
     color: #DDD;
 }
@@ -70,7 +76,10 @@ stamp
         height: 80px;
     }
 
-    .stamp-item form button {
+    .stamp-item__start,
+    .stamp-item__end,
+    .stamp-item__break,
+    .stamp-item__restart {
         line-height: 80px;
     }
 }

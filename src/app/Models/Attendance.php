@@ -25,6 +25,8 @@ class Attendance extends Model
     /**
      * リレーション設定
      * restsテーブルと関連付け
+     * @param void
+     * @return hasMany
      */
     public function rests()
     {
@@ -35,6 +37,8 @@ class Attendance extends Model
     /**
      * リレーション設定
      * usersテーブルと関係付け
+     * @param void
+     * @return belongsTo
      */
     public function user()
     {
@@ -44,6 +48,8 @@ class Attendance extends Model
 
     /**
      * datetime型のデータをdateに変換する
+     * @param $element
+     * @return string time
      */
     public function changeDate($element)
     {
@@ -53,6 +59,9 @@ class Attendance extends Model
 
     /**
      * 休憩時間を計算する
+     * @param array $arrayBreak:休憩開始時間の配列
+     * @param array $arrayRestart:休憩終了時間の配列
+     * @return string time:休憩時間
      */
     public function totalRes($arrayBreak, $arrayRestart)
     {
@@ -92,6 +101,9 @@ class Attendance extends Model
 
     /**
      * 勤務時間を計算する
+     * @param string $start:勤務開始時間
+     * @param string $end:勤務終了時間
+     * @return string time:勤務時間
      */
     public function totalAtt($start, $end)
     {

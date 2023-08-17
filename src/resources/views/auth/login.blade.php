@@ -13,6 +13,7 @@
         </div>
         
         <div class="login-content">
+            <!-- メールアドレス -->
             <div class="login-item">
                 <div class="login-input">
                     <input class="login-input__item" type="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス" autofocus />
@@ -25,6 +26,7 @@
                 </div>
             </div>
 
+            <!-- パスワード -->
             <div class="login-item">
                 <div class="login-input">
                     <input class="login-input__item" type="password" name="password" value="{{ old('password') }}" placeholder="パスワード" />
@@ -37,12 +39,14 @@
                 </div>
             </div>
 
+            <!-- ログイン -->
             <div class="login-item">
                 <div class="login-button">
                     <button class="login-button__item">ログイン</button>
                 </div>
             </div>
 
+            <!-- 会員登録 -->
             <div class="login-item">
                 <div class="register-comment">
                     <p class="register-comment__text">アカウントをお持ちでない方はこちらから</p>

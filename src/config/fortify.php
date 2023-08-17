@@ -134,7 +134,6 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // アドレス確認機能を有効にする
         Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),

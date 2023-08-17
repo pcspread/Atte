@@ -46,7 +46,7 @@ list-section
     margin: 0 32px;
 }
 
-.list-main h2 {
+.list-main__text {
     font-size: 20px;
 }
 
@@ -114,7 +114,7 @@ list-section
     align-items: center;
 }
 
-.list-row__link a {
+.list-row__link-text {
     display: block;
     width: 115px;
     min-height: 32px;
@@ -127,18 +127,16 @@ list-section
     text-decoration: none;
 }
 
-.list-row__link a:hover {
+.list-row__link-text:hover {
     background-color: #333;
     box-shadow: none;
 }
 
 @media screen and (max-width: 768px) {
     .list-table {
-
         text-align: center;
         word-wrap: break-word;
     }
-
 
     .list-row__title {
         padding: 10px 5px;

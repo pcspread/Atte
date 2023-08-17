@@ -42,19 +42,10 @@ personal-section
     align-items: center;
 }
 
-.personal-main {
-    margin: 0 32px;
-}
-
-.personal-main h2 {
+.personal-title__text {
     font-size: 20px;
 }
 
-@media screen and (max-width: 480px) {
-    .personal-main {
-        margin: 0 8px;
-    }
-}
 
 /* =============== personal-information =============== */
 .personal-information {
@@ -70,7 +61,9 @@ personal-section
     }
 }
 
-.information-name h3 {
+
+/* ===== information-name ===== */
+.information-name__main {
     padding: 8px 32px;
     border: 1px solid #0000FF;
     border-radius: 3px;
@@ -78,7 +71,7 @@ personal-section
     background-color: #FFF;
 }
 
-.information-name h3:hover {
+.information-name__main:hover {
     color: #FFF;
     background-color: #00AAFF;
     cursor: pointer;
@@ -96,7 +89,7 @@ personal-section
     z-index: 2;
 }
 
-.information-name__list a {
+.information-name__list-link {
     text-align: left;
     display: block;
     padding: 5px 15px;
@@ -104,13 +97,13 @@ personal-section
     font-weight: bold;
 }
 
-.information-name__list a:hover {
+.information-name__list-link:hover {
     cursor: pointer;
     color: #FFF;
     background-color: #00AAFF;
 }
 
-.information-name__list a:last-of-type:hover {
+.information-name__list-link:last-of-type:hover {
     border-radius: 0 0 15px 0;
 }
 
@@ -122,6 +115,8 @@ personal-section
     opacity: .5;
 }
 
+
+/* ===== information-date ===== */
 .information-date {
     margin: 15px 0;
     display: flex;
@@ -129,7 +124,7 @@ personal-section
     align-items: center;
 }
 
-.date-sub {
+.information-date__sub {
     height: 25px;
     border: 1px solid #0000FF;
     border-radius: 2px;
@@ -139,7 +134,7 @@ personal-section
     align-items: center;
 }
 
-.date-sub a {
+.information-date__sub-link {
     padding: 0 10px;
     font-size: 20px;
     color: #0000FF;
@@ -147,21 +142,21 @@ personal-section
     font-weight: bold;
 }
 
-.date-sub:hover {
+.information-date__sub:hover {
     background-color: #0000FF;
     box-shadow: none;
     cursor: pointer;
 }
 
-.date-sub a:hover {
+.information-date__sub-link:hover {
     color: #FFF;
 }
 
-.date-main {
+.information-date__main {
     margin: 0 8px;
 }
 
-.date-main h2 {
+.information-date__main-title {
     font-size: 18px;
 }
 
@@ -270,7 +265,7 @@ personal-section
     opacity: .6;
 }
 
-.personal-none p {
+.personal-none__text {
     margin: 0 auto;
     padding: 15px;
     font-size: 24px;
