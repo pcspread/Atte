@@ -25,21 +25,24 @@ use Carbon\Carbon;
 
             <div class="information-name__list">
                 @foreach (session('users') as $person)
-                <a class="information-name__list-link" href="/attendance/personal?key={{ $person['id'] }}">{{ $person['name'] }} さん</a>
+                <a class="information-name__list-link" href="/attendance/personal?id={{ $person['id'] }}">{{ $person['name'] }} さん</a>
                 @endforeach
             </div>
         </div>
 
         <!-- 年月 -->
         <div class="information-date">
+            <!-- 前月 -->
             <div class="information-date__sub">
-                <a class="information-date__sub-link" href="/attendance/personal?key={{ session('user')->id }}&date={{ Carbon::parse(session('date'))->subMonth()->format('Y-m') }}"><</a>
+                <a class="information-date__sub-link" href="/attendance/personal?id={{ session('user')->id }}&month={{ Carbon::parse(session('month'))->subMonth()->format('Y-m') }}"><</a>
             </div>
+            <!-- 当月 -->
             <div class="information-date__main">
-                <h3 class="information-date__main-title">{{ session('date')->format('Y月m日') ?? '表示できません' }}</h3>
+                <h3 class="information-date__main-title">{{ session('month')->format('Y月m日') ?? '表示できません' }}</h3>
             </div>
+            <!-- 翌月 -->
             <div class="information-date__sub">
-                <a class="information-date__sub-link" href="/attendance/personal?key={{ session('user')->id }}&date={{ Carbon::parse(session('date'))->addMonth()->format('Y-m') }}">></a>
+                <a class="information-date__sub-link" href="/attendance/personal?id={{ session('user')->id }}&month={{ Carbon::parse(session('month'))->addMonth()->format('Y-m') }}">></a>
             </div>
         </div>
     </div>

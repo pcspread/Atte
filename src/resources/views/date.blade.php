@@ -15,20 +15,19 @@ use Carbon\Carbon;
 @section('content')
 <div class="date-section">
     <div class="date-title">
+        <!-- 前日 -->
         <div class="date-title__sub">
-            <a class="date-title__sub-link" href="/attendance?key={{ 
-                (Carbon::parse(session('date'))->day === Carbon::parse(session('date'))->startOfMonth()->day) ? Carbon::parse(session('date'))->subMonth()->endOfMonth()->toDateString() : Carbon::parse(session('date'))->subDay()->toDateString()
-             }}"><</a>
+            <a class="date-title__sub-link" href="/attendance?date={{ Carbon::parse(session('date'))->subDay()->toDateString() }}"><</a>
         </div>
 
+        <!-- 当日 -->
         <div class="date-title__main">
             <h1 class="date-title__main-text">{{ session('date') ?? '表示できません' }}</h1>
         </div>
 
+        <!-- 翌日 -->
         <div class="date-title__sub">
-            <a class="date-title__sub-link" href="/attendance?key={{
-                (Carbon::parse(session('date'))->day === Carbon::parse(session('date'))->endOfMonth()->day) ? Carbon::parse(session('date'))->addMonth()->startOfMonth()->toDateString() : Carbon::parse(session('date'))->addDay()->toDateString()
-            }}">></a>
+            <a class="date-title__sub-link" href="/attendance?date={{ Carbon::parse(session('date'))->addDay()->toDateString() }}">></a>
         </div>
     </div>
 

@@ -39,7 +39,7 @@
                     </td>
                     <td class="list-row__content">
                         <div class="list-row__link">
-                            <a class="list-row__link-text" href="/attendance/personal?key={{ $user['id'] }}">勤怠詳細</a>
+                            <a class="list-row__link-text" href="/attendance/personal?id={{ $user['id'] }}">勤怠詳細</a>
                         </div>
                     </td>
                 </tr>
