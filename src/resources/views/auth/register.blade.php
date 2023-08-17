@@ -13,6 +13,7 @@
         </div>
         
         <div class="register-content">
+            <!-- 名前 -->
             <div class="register-item">
                 <div class="register-input">
                     <input class="register-input__item" type="name" name="name" value="{{ old('name') }}" placeholder="名前" autofocus />
@@ -25,6 +26,7 @@
                 </div>
             </div>
 
+            <!-- メールアドレス -->
             <div class="register-item">
                 <div class="register-input">
                     <input class="register-input__item" type="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス" />
@@ -37,6 +39,7 @@
                 </div>
             </div>
 
+            <!-- パスワード -->
             <div class="register-item">
                 <div class="register-input">
                     <input class="register-input__item" type="password" name="password" value="{{ old('password') }}" placeholder="パスワード" />
@@ -49,18 +52,21 @@
                 </div>
             </div>
 
+            <!-- 確認用パスワード -->
             <div class="register-item">
                 <div class="register-input">
                     <input class="register-input__item" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="確認用パスワード" />
                 </div>
             </div>
 
+            <!-- 会員登録 -->
             <div class="register-item">
                 <div class="register-button">
                     <button class="register-button__item">会員登録</button>
                 </div>
             </div>
 
+            <!-- ログイン -->
             <div class="register-item">
                 <div class="login-comment">
                     <p class="login-comment__text">アカウントをお持ちの方はこちらから</p>

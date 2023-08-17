@@ -16,7 +16,7 @@ class RestController extends Controller
     /**
      * 休憩開始処理
      * @param void
-     * @return view
+     * @return redirect
      */
     public function store()
     {
@@ -28,18 +28,18 @@ class RestController extends Controller
 
         // 日付を超えている場合
         if ($now->toDateString() !== $sesAtt->date_at) {
-            // 既存のattendanceレコード更新 ==============================
+            // 既存のattendanceレコード更新
             Attendance::find($sesAtt->id)->update([
                 'end_at' => $now->subDay()->toDateString() . ' 23:59:59',
                 'date_at' => $now->toDateString()
             ]);
-            // 新規のattendanceレコード追加 ==============================
+            // 新規のattendanceレコード追加
             Attendance::create([
                 'user_id' => $sesAtt->user_id,
                 'start_at' => $now->addDay()->toDateString() . ' 00:00:00',
                 'date_at' => $now->toDateString()
             ]);
-            // restレコードの追加 ==============================
+            // restレコードの追加
             Rest::create([
                 'attendance_id' => Attendance::orderBy('id', 'desc')->first()->id,
                 'break_at' => $now->toTimeString()
@@ -65,7 +65,7 @@ class RestController extends Controller
     /**
      * 休憩終了処理
      * @param void
-     * @return view
+     * @return redirect
      */
     public function update()
     {
@@ -78,7 +78,7 @@ class RestController extends Controller
 
         // もし日付を超えている場合
         if ($now->toDateString() !== $sesAtt->date_at) {
-            // 既存レコードのupdate処理 ==============================
+            // 既存レコードのupdate処理
                 // restレコード
                 Rest::find($sesRes->id)->update([
                     'restart_at' => '23:59:59'
@@ -88,7 +88,7 @@ class RestController extends Controller
                     'end_at' => $now->subDay()->toDateString() . ' 23:59:59',
                     'date_at' => $now->toDateString()
                 ]);
-            // 新しいレコードの追加処理 ==============================
+            // 新しいレコードの追加処理
                 // attendanceレコード
                 Attendance::create([
                     'user_id' => $sesAtt->user_id,
@@ -101,7 +101,7 @@ class RestController extends Controller
                     'break_at' => '00:00:00',
                     'restart_at' => $now->toTimeString()
                 ]);
-            // セッション情報の更新 ==============================
+            // セッション情報の更新
             session()->put([
                 'attendance' => Attendance::orderBy('id', 'desc')->first(),
                 'rest' => rest::orderBy('id', 'desc')->first()

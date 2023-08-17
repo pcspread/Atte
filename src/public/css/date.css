@@ -43,7 +43,7 @@ date-section
     align-items: center;
 }
 
-.date-sub {
+.date-title__sub {
     height: 25px;
     border: 1px solid #0000FF;
     border-radius: 2px;
@@ -53,7 +53,7 @@ date-section
     align-items: center;
 }
 
-.date-sub a {
+.date-title__sub-link {
     padding: 0 10px;
     font-size: 20px;
     color: #0000FF;
@@ -61,29 +61,30 @@ date-section
     font-weight: bold;
 }
 
-.date-sub:hover {
+.date-title__sub:hover {
     background-color: #0000FF;
     box-shadow: none;
     cursor: pointer;
 }
 
-.date-sub a:hover {
+.date-title__sub-link:hover {
     color: #FFF;
 }
 
-.date-main {
+.date-title__main {
     margin: 0 32px;
 }
 
-.date-main h2 {
-    font-size: 20px;
-}
-
 @media screen and (max-width: 480px) {
-    .date-main {
+    .date-title__main {
         margin: 0 8px;
     }
 }
+
+.date-title__main-text {
+    font-size: 20px;
+}
+
 
 
 /* =============== content =============== */
@@ -120,7 +121,6 @@ date-section
         word-wrap: break-word;
     }
 
-
     .date-row__title {
         padding: 5px;
     }
@@ -145,7 +145,7 @@ date-section
     opacity: .6;
 }
 
-.date-none p {
+.date-none__text {
     margin: 0 auto;
     padding: 15px;
     font-size: 24px;

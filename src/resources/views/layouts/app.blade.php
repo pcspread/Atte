@@ -33,20 +33,24 @@
                                 ホーム
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/attendance/list">
                                 社員一覧
                             </a>
                         </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="/attendance">
                                 日付一覧
                             </a>
                         </li>
+                        
                         <li class="nav-item">
                             <form class="nav-item__logout-form" action="/logout" method="POST">
                             @csrf
                                 <input class="nav-item__input-hidden" type="hidden" name="id" value="{{ session('id') ?? '' }}">
+                                
                                 <button class="nav-link__button">ログアウト</button>
                             </form>
                         </li>
