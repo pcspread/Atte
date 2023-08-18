@@ -68,13 +68,18 @@ use App\Models\Attendance;
             @endphp
             <tr class="personal-row">
                 <!-- 日付 -->
-                <td class="personal-row__content" id="day">
+                <td class="personal-row__content day">
                     {{ $day->isoFormat('D日(dd)') }}
+                    @php
+                        if ($day->toDateString() === Carbon::now()->toDateString()) {
+                            echo htmlspecialchars('　✔', ENT_QUOTES, 'UTF-8');
+                        }
+                    @endphp
                 </td>
                 
                 <!-- 勤務開始 -->
                 <td class="personal-row__content">
-                    {{  !empty($record->start_at) ? Carbon::parse($record->start_at)->format('H:i:s') : '' }}
+                    {{  !empty($record->start_at) ? Carbon::parse($record->start_at)->format('H:i:s') : '( 勤怠情報無 )' }}
                 </td>
                 
                 <!-- 勤務終了 -->
@@ -98,6 +103,7 @@ use App\Models\Attendance;
                         }
                     @endphp
                     {{ $restTime }}
+
                     @if (!empty($record->rests))
                     <!-- 休憩詳細 -->
                     <div class="rest-detail">
@@ -105,7 +111,7 @@ use App\Models\Attendance;
                             $count = 1;
                             foreach ($record->rests as $item) {
                                 $detail = '(' . $count . ') ' . $item->break_at . '～' . $item->restart_at;
-                                echo '<br />' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8');
+                                echo '<p>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</p>';
                                 $count++;
                             }
                         @endphp
