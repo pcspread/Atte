@@ -84,3 +84,24 @@ function detailDisp() {
     });
 }
 detailDisp();
+
+
+/**
+ * 土日の行を変色する
+ */
+function colorHoliday() {
+    const days = document.querySelectorAll('#day');
+
+    // let date = new Date();
+    // let week = date.getDay();
+    // let weekStr = ['日', '月', '火', '水', '木', '金', '土'];
+
+    const pattern1 = /^['土']$/;
+    const pattern2 = /^['日']$/;
+    days.forEach(day => {
+        if (this.textContent.match(pattern1) || this.textContent.match(pattern2)) {
+            day.style.color = "#FF0000";
+        }
+    });
+}
+colorHoliday();

@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 // Carbon読込
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class AttendanceController extends Controller
 {
@@ -97,11 +98,11 @@ class AttendanceController extends Controller
      */
     public function listDate(Request $request)
     {
-        // 当日の日付を取得
-        $now = Carbon::now();
-
         // クエリパラメータ(date)を取得
         $date = $request->date;
+
+        // 当日の日付を取得
+        $now = Carbon::now();
 
         // クエリパラメータがdate型でない場合(未関係の文字を入力された場合)
         if (!strptime($date, '%Y-%m-%d')) {
@@ -146,15 +147,16 @@ class AttendanceController extends Controller
      */
     public function listUserPart(Request $request)
     {
-        // 当日の日付を取得
-        $now = Carbon::now();
-
         // クエリパラメータを取得
         $user_id = $request->id; // id
         $month = $request->month; // month
+     
+        // 当日の日付を取得
+        $now = Carbon::now();
 
         // $user_idが無い、もしくは数字で無い場合(未関係の文字を入力された場合)
         if (empty($user_id) || !is_numeric($user_id)) {
+            // 社員一覧ページへ
             return redirect('/attendance/list');
         }
 
@@ -172,9 +174,17 @@ class AttendanceController extends Controller
             $attendances = Attendance::with('user', 'rests')->where([['user_id', $user_id], ['date_at', 'like', "%{$now->format('Y-m')}%"]])->orderBy('date_at', 'asc')->get();
         }
 
+        
+        // 該当月の全ての日を取得
+        $baseDay = $now->copy();
+        $days = CarbonPeriod::create($baseDay->startOfMonth()->toDateString(), $baseDay->endOfMonth()->toDateString())->toArray();
+        
+
         // セッションに必要情報を格納
         session()->put([
+            'user_id' => $user_id,
             'month' => $now,
+            'days' => $days,
             'user' => $user,
             'users' => $users,
             'attendances' => $attendances ?? ''

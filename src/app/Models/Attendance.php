@@ -113,4 +113,19 @@ class Attendance extends Model
         $diff = $startTime->diff($endTime);
         return $diff->format('%H:%I:%S');
     }
+
+
+    /**
+     * scope検索：該当日のレコードを抽出
+     * @param int $id 該当社員のID
+     * @param object $date 該当日 
+     * @return void
+     */
+    public function dateMatch($id, $date) 
+    {
+        // 日付のフォーマット変更
+        $format = Carbon::parse($date)->format('Y-m-d');
+        
+        return Attendance::where([['user_id', $id], ['date_at', $date]])->first();
+    }
 }
