@@ -1,5 +1,6 @@
 @php
 use Carbon\Carbon;
+use App\Models\Attendance;
 @endphp
 
 @extends('layouts.app')
@@ -47,7 +48,6 @@ use Carbon\Carbon;
         </div>
     </div>
 
-    @if (count(session('attendances')) > 0)
     <div class="personal-content">    
         <table class="personal-table">
             <tr class="personal-row">
@@ -62,21 +62,29 @@ use Carbon\Carbon;
                 <th class="personal-row__title">勤務時間</th>
             </tr>
             
-            @foreach (session('attendances') as $attendance)
+            @foreach (session('days') as $day)
+            @php
+                $record = Attendance::dateMatch(session('user_id'), $day);
+            @endphp
             <tr class="personal-row">
                 <!-- 日付 -->
-                <td class="personal-row__content">
-                    {{ Carbon::parse($attendance->date_at)->isoFormat('D日(dd)') }}
+                <td class="personal-row__content day">
+                    {{ $day->isoFormat('D日(dd)') }}
+                    @php
+                        if ($day->toDateString() === Carbon::now()->toDateString()) {
+                            echo htmlspecialchars('　✔', ENT_QUOTES, 'UTF-8');
+                        }
+                    @endphp
                 </td>
                 
                 <!-- 勤務開始 -->
                 <td class="personal-row__content">
-                    {{ Carbon::parse($attendance->start_at)->format('H:i:s') }}
+                    {{  !empty($record->start_at) ? Carbon::parse($record->start_at)->format('H:i:s') : '( 勤怠情報無 )' }}
                 </td>
                 
                 <!-- 勤務終了 -->
                 <td class="personal-row__content">
-                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $attendance->changeDate($attendance->end_at) }}
+                    {{  !empty($record->end_at) ? Carbon::parse($record->end_at)->format('H:i:s') : '' }}
                 </td>
 
                 <!-- 休憩時間 -->
@@ -84,33 +92,39 @@ use Carbon\Carbon;
                     @php
                         $arrayBreak = [];
                         $arrayRestart = [];
-                        foreach ($attendance->rests as $item) {
-                            $arrayBreak[] = $item->break_at;
-                            $arrayRestart[] = $item->restart_at;
+                        if (!empty($record->rests)) {
+                            foreach ($record->rests as $item) {
+                                $arrayBreak[] = $item->break_at;
+                                $arrayRestart[] = $item->restart_at;
+                            }
+                            $restTime = Attendance::totalRes($arrayBreak, $arrayRestart);
+                        } else {
+                            $restTime = '';
                         }
-                        $restTime = $attendance->totalRes($arrayBreak, $arrayRestart);
                     @endphp
                     {{ $restTime }}
-                    
+
+                    @if (!empty($record->rests))
                     <!-- 休憩詳細 -->
                     <div class="rest-detail">
-                        (休憩詳細)
                         @php
-                        $count = 1;
-                        foreach ($attendance->rests as $item) {
-                            $detail = '(' . $count . ') ' . $item->break_at . '～' . $item->restart_at;
-                            echo '<br />' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8');
-                            $count++;
-                        }
+                            $count = 1;
+                            foreach ($record->rests as $item) {
+                                $detail = '(' . $count . ') ' . $item->break_at . '～' . $item->restart_at;
+                                echo '<p>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</p>';
+                                $count++;
+                            }
                         @endphp
                     </div>
+                    @endif
                 </td>
                 
                 <!-- 勤務時間 -->
                 <td class="personal-row__content">
+                @if (!empty($record->start_at))
                     @php
-                        $diffParent = Carbon::parse($attendance->totalAtt($attendance->start_at, $attendance->end_at));
-                       
+                        $diffParent = Carbon::parse(Attendance::totalAtt($record->start_at, $record->end_at));
+                        
                         if (($restTime) === '(休憩中)') {
                             $diffChild = Carbon::parse('00:00:00');
                         } else {
@@ -119,16 +133,12 @@ use Carbon\Carbon;
 
                         $diffTime = $diffParent->diff($diffChild);
                     @endphp
-                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $diffTime->format('%H:%I:%S') }}
+                    {{ (Attendance::changeDate($record->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $diffTime->format('%H:%I:%S') }}
+                @endif
                 </td>
             </tr>
             @endforeach
         </table>
     </div>
-    @else
-    <div class="personal-none">
-        <p class="personal-none__text">勤怠情報がありません</p>
-    </div>
-    @endif
 </div>
 @endsection
