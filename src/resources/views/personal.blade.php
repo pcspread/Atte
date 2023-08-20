@@ -63,9 +63,6 @@ use App\Models\Attendance;
             </tr>
             
             @foreach (session('days') as $day)
-            @php
-                $record = Attendance::dateMatch(session('user_id'), $day);
-            @endphp
             <tr class="personal-row">
                 <!-- 日付 -->
                 <td class="personal-row__content day">
@@ -74,23 +71,51 @@ use App\Models\Attendance;
                         if ($day->toDateString() === Carbon::now()->toDateString()) {
                             echo htmlspecialchars('　✔', ENT_QUOTES, 'UTF-8');
                         }
+                        
+                        $attendances = Attendance::where([['user_id', session('user_id')], ['date_at', $day]])->get();
                     @endphp
                 </td>
                 
                 <!-- 勤務開始 -->
                 <td class="personal-row__content">
-                    {{ !empty($record->start_at) ? Carbon::parse($record->start_at)->format('H:i:s') : '( 勤怠情報無 )' }}
+                    @php
+                        if (empty($attendances[0])) {
+                            $non_att = '(出勤情報無)';
+                            echo htmlspecialchars($non_att, ENT_QUOTES, 'UTF-8');
+                        }
+
+                        if (count($attendances) > 1) {
+                            $keyword = 1;
+                        } else {
+                            $keyword = '';
+                        }
+
+                        foreach ($attendances as $attendance) {
+                            if ($keyword >= 1) {
+                                echo "[{$keyword}回目] ";
+                                $keyword++;
+                            }
+                            $start = Carbon::parse($attendance->start_at);
+                            echo htmlspecialchars($start->format('H:i:s'), ENT_QUOTES, 'UTF-8') . '<br />';
+                        }
+                    @endphp
                 </td>
                 
                 <!-- 勤務終了 -->
                 <td class="personal-row__content">
                     @php
-                        if (!empty($record->end_at)) {
-                            echo htmlspecialchars(Carbon::parse($record->end_at)->format('H:i:s'), ENT_QUOTES, 'UTF-8');
+                        if (count($attendances) > 1) {
+                            $num = 1;
                         } else {
-                            if (!empty($record->start_at)) {
-                                echo htmlspecialchars('(勤務中)', ENT_QUOTES, 'UTF_8');
+                            $num = '';
+                        }
+                        foreach ($attendances as $attendance) {
+                            if (!empty($num)) {
+                                echo "[{$num}回目] ";
+                                $num++;
                             }
+                            $end = Carbon::parse($attendance->end_at);
+                            echo htmlspecialchars($end->format('H:i:s'), ENT_QUOTES, 'UTF-8') . '<br />';
                         }
                     @endphp
                 </td>
@@ -98,51 +123,72 @@ use App\Models\Attendance;
                 <!-- 休憩時間 -->
                 <td class="personal-row__content rest-time">
                     @php
-                        $arrayBreak = [];
-                        $arrayRestart = [];
-                        if (!empty($record->rests)) {
-                            foreach ($record->rests as $item) {
-                                $arrayBreak[] = $item->break_at;
-                                $arrayRestart[] = $item->restart_at;
-                            }
-                            $restTime = Attendance::totalRes($arrayBreak, $arrayRestart);
+                        if (count($attendances) > 1) {
+                            $num = 1;
                         } else {
-                            $restTime = '';
+                            $num = '';
+                        }
+
+                        foreach ($attendances as $attendance) {
+                            if (!empty($num)) {
+                                echo "[{$num}回目] ";
+                                $num++;
+                            }
+
+                            $arrayBreak = [];
+                            $arrayRestart = [];
+                            
+                            if (!empty($attendance->rests)) {
+                                foreach ($attendance->rests as $item) {
+                                    $arrayBreak[] = $item->break_at;
+                                    $arrayRestart[] = $item->restart_at;
+                                }
+                                echo htmlspecialchars(Attendance::totalRes($arrayBreak, $arrayRestart), ENT_QUOTES, 'UTF-8') . '<br />';
+                            }
                         }
                     @endphp
-                    {{ $restTime }}
 
-                    @if (!empty($record->rests))
+                    @foreach ($attendances as $attendance)
+                    @if ($attendance->rests->first())
                     <!-- 休憩詳細 -->
                     <div class="rest-detail">
                         @php
-                            $count = 1;
-                            foreach ($record->rests as $item) {
-                                $detail = '(' . $count . ') ' . $item->break_at . '～' . $item->restart_at;
-                                echo '<p>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</p>';
+                                $count = 1;
+                                $count2 = 1;
+                                foreach ($attendance->rests as $item) {
+                                    $detail = "[{$count}回目({$count2})] " . $item->break_at . '～' . $item->restart_at;
+                                    echo '<p>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</p>';
+                                    $count2++;
+                                }
                                 $count++;
-                            }
                         @endphp
                     </div>
                     @endif
+                    @endforeach
                 </td>
                 
                 <!-- 勤務時間 -->
                 <td class="personal-row__content">
-                @if (!empty($record->start_at))
                     @php
-                        $diffParent = Carbon::parse(Attendance::totalAtt($record->start_at, $record->end_at));
-                        
-                        if (($restTime) === '(休憩中)') {
-                            $diffChild = Carbon::parse('00:00:00');
+                        if (count($attendances) > 1) {
+                            $num = 1;
                         } else {
-                            $diffChild = Carbon::parse($restTime);
+                            $num = '';
                         }
+                        
 
-                        $diffTime = $diffParent->diff($diffChild);
+                        foreach ($attendances as $attendance) {
+                            if (!empty($num)) {
+                                echo "[{$num}回目] ";
+                                $num++;
+                            }
+                            if (empty($attendance->rests)) {
+                                echo htmlspecialchars(Carbon::parse('00:00:00')->format('H:i:s'), ENT_QUOTES, 'UTF-8') . '<br />';
+                            } else {
+                                echo htmlspecialchars(Carbon::parse(Attendance::totalAtt($attendance->start_at, $attendance->end_at))->format('H:i:s'), ENT_QUOTES, 'UTF-8') . '<br />';
+                            }
+                        }
                     @endphp
-                    {{ (Attendance::changeDate($record->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $diffTime->format('%H:%I:%S') }}
-                @endif
                 </td>
             </tr>
             @endforeach
