@@ -116,7 +116,7 @@ class Attendance extends Model
 
 
     /**
-     * scope検索：該当日のレコードを抽出
+     * 該当日のレコードを抽出
      * @param int $id 該当社員のID
      * @param object $date 該当日 
      * @return void
@@ -126,6 +126,7 @@ class Attendance extends Model
         // 日付のフォーマット変更
         $format = Carbon::parse($date)->format('Y-m-d');
         
+        // Attendance::where([['user_id', $id], ['date_at', $date]])->get();
         return Attendance::where([['user_id', $id], ['date_at', $date]])->first();
     }
 }
