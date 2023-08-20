@@ -79,12 +79,20 @@ use App\Models\Attendance;
                 
                 <!-- 勤務開始 -->
                 <td class="personal-row__content">
-                    {{  !empty($record->start_at) ? Carbon::parse($record->start_at)->format('H:i:s') : '( 勤怠情報無 )' }}
+                    {{ !empty($record->start_at) ? Carbon::parse($record->start_at)->format('H:i:s') : '( 勤怠情報無 )' }}
                 </td>
                 
                 <!-- 勤務終了 -->
                 <td class="personal-row__content">
-                    {{  !empty($record->end_at) ? Carbon::parse($record->end_at)->format('H:i:s') : '' }}
+                    @php
+                        if (!empty($record->end_at)) {
+                            echo htmlspecialchars(Carbon::parse($record->end_at)->format('H:i:s'), ENT_QUOTES, 'UTF-8');
+                        } else {
+                            if (!empty($record->start_at)) {
+                                echo htmlspecialchars('(勤務中)', ENT_QUOTES, 'UTF_8');
+                            }
+                        }
+                    @endphp
                 </td>
 
                 <!-- 休憩時間 -->
