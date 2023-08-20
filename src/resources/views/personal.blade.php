@@ -71,7 +71,6 @@ use App\Models\Attendance;
                         if ($day->toDateString() === Carbon::now()->toDateString()) {
                             echo htmlspecialchars('　✔', ENT_QUOTES, 'UTF-8');
                         }
-                        
                         $attendances = Attendance::where([['user_id', session('user_id')], ['date_at', $day]])->get();
                     @endphp
                 </td>
@@ -79,24 +78,13 @@ use App\Models\Attendance;
                 <!-- 勤務開始 -->
                 <td class="personal-row__content">
                     @php
-                        if (empty($attendances[0])) {
-                            $non_att = '(出勤情報無)';
-                            echo htmlspecialchars($non_att, ENT_QUOTES, 'UTF-8');
-                        }
-
-                        if (count($attendances) > 1) {
-                            $keyword = 1;
-                        } else {
-                            $keyword = '';
-                        }
-
-                        foreach ($attendances as $attendance) {
-                            if ($keyword >= 1) {
-                                echo "[{$keyword}回目] ";
-                                $keyword++;
+                        for ($i = 0; $i < count(Attendance::displayStart($attendances)); $i++) {
+                            $item = Attendance::displayStart($attendances)[$i];
+                            if (($i % 2) === 0) {
+                                echo Attendance::xss($item);
+                            } else {
+                                echo Attendance::xss($item) . '<br />';
                             }
-                            $start = Carbon::parse($attendance->start_at);
-                            echo htmlspecialchars($start->format('H:i:s'), ENT_QUOTES, 'UTF-8') . '<br />';
                         }
                     @endphp
                 </td>
@@ -104,18 +92,13 @@ use App\Models\Attendance;
                 <!-- 勤務終了 -->
                 <td class="personal-row__content">
                     @php
-                        if (count($attendances) > 1) {
-                            $num = 1;
-                        } else {
-                            $num = '';
-                        }
-                        foreach ($attendances as $attendance) {
-                            if (!empty($num)) {
-                                echo "[{$num}回目] ";
-                                $num++;
+                        for ($i = 0; $i < count(Attendance::displayEnd($attendances)); $i++) {
+                            $item = Attendance::displayEnd($attendances)[$i];
+                            if (($i % 2) === 0) {
+                                echo Attendance::xss($item);
+                            } else {
+                                echo Attendance::xss($item) . '<br />';
                             }
-                            $end = Carbon::parse($attendance->end_at);
-                            echo htmlspecialchars($end->format('H:i:s'), ENT_QUOTES, 'UTF-8') . '<br />';
                         }
                     @endphp
                 </td>
@@ -148,26 +131,28 @@ use App\Models\Attendance;
                         }
                     @endphp
 
-                    @foreach ($attendances as $attendance)
-                    @if ($attendance->rests->first())
+                    <!-- if ($attendance->rests->first()) -->
                     <!-- 休憩詳細 -->
                     <div class="rest-detail">
                         @php
-                                $count = 1;
-                                $count2 = 1;
-                                foreach ($attendance->rests as $item) {
-                                    $detail = "[{$count}回目({$count2})] " . $item->break_at . '～' . $item->restart_at;
-                                    echo '<p>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</p>';
-                                    $count2++;
-                                }
-                                $count++;
+                        foreach ($attendances as $attendance) {
+                            $count = 1;
+                            echo "[{$count}回目]<br />";
+                            $count2 = 1;
+                            foreach ($attendance->rests as $item) {
+                                $detail = "({$count2}) {$item->break_at}～{$item->restart_at}";
+                                echo '<p>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</p>';
+                                $count2++;
+                            }
+                            $count++;
+                        }
                         @endphp
                     </div>
-                    @endif
-                    @endforeach
+                    
                 </td>
                 
                 <!-- 勤務時間 -->
+
                 <td class="personal-row__content">
                     @php
                         if (count($attendances) > 1) {
