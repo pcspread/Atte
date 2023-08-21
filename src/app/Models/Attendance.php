@@ -138,13 +138,18 @@ class Attendance extends Model
         }
 
         foreach ($attendances as $attendance) {
-            // 件数が多い場合
-            if (!empty($num)) {
-                $displayEnd .= self::xss("[{$num}回目] ");
-                $num++;
+            // 出勤中の場合
+            if (!empty($attendance->start_at) && empty($attendance->end_at)) {
+                $displayEnd .= self::xss('(出勤中)');
+            } else {
+                // 件数が多い場合
+                if (!empty($num)) {
+                    $displayEnd .= self::xss("[{$num}回目] ");
+                    $num++;
+                }
+                // 勤務終了時間を格納
+                $displayEnd .= self::xss(Carbon::parse($attendance->end_at)->format('H:i:s')) . '<br />';
             }
-            // 勤務終了時間を格納
-            $displayEnd .= self::xss(Carbon::parse($attendance->end_at)->format('H:i:s')) . '<br />';
         }
 
         return $displayEnd;
@@ -225,46 +230,6 @@ class Attendance extends Model
 
 
     /**
-     * 勤務合計時間を計算する
-     * @param object $attendances レコードオブジェクト
-     * @return string $displayAttTotal 勤務合計時間情報
-     */
-    public function displayAttTotal($attendances)
-    {
-        // 表示データ用の変数を初期化
-        $displayAttTotal = '';
-
-        // 勤務時間の回数計算用データを格納
-        if (count($attendances) > 1) {
-            $num = 1;
-        } else {
-            $num = '';
-        }
-        
-        foreach ($attendances as $attendance) {
-            // レコードが複数ある場合
-            if (!empty($num)) {
-                $displayAttTotal .= self::xss("[{$num}回目] ");
-                $num++;
-            }
-
-            if (empty($attendance->rests)) {
-                // 休憩時間レコードが無い場合
-                $displayAttTotal .= self::xss(Carbon::parse('00:00:00')->format('H:i:s')) . '<br />';
-            } else {
-                // 休憩時間レコードがある場合
-                $startTime = Carbon::parse($attendance->start_at);
-                $endTime = Carbon::parse($attendance->end_at);
-                // 勤務時間を計算
-                $diff = $startTime->diff($endTime);
-                $displayAttTotal .= self::xss($diff->format('%H:%I:%S')) . '<br />';
-            }
-        }
-
-        return $displayAttTotal;
-    }
-
-    /**
      * 休憩時間詳細の表示内容を作成する
      * @param object $attendances レコードオブジェクト
      * @return string $displayRestDetail 休憩詳細情報
@@ -299,6 +264,51 @@ class Attendance extends Model
         }
 
         return $displayRestDetail;
+    }
+
+
+    /**
+     * 勤務合計時間を計算する
+     * @param object $attendances レコードオブジェクト
+     * @return string $displayAttTotal 勤務合計時間情報
+     */
+    public function displayAttTotal($attendances)
+    {
+        // 表示データ用の変数を初期化
+        $displayAttTotal = '';
+
+        // 勤務時間の回数計算用データを格納
+        if (count($attendances) > 1) {
+            $num = 1;
+        } else {
+            $num = '';
+        }
+        
+        foreach ($attendances as $attendance) {
+            if (!empty($attendance->start_at) && empty($attendance->end_at)) {
+                $displayAttTotal .= '(出勤中)';
+            } else {
+                // レコードが複数ある場合
+                if (!empty($num)) {
+                    $displayAttTotal .= self::xss("[{$num}回目] ");
+                    $num++;
+                }
+
+                if (empty($attendance->rests)) {
+                    // 休憩時間レコードが無い場合
+                    $displayAttTotal .= self::xss(Carbon::parse('00:00:00')->format('H:i:s')) . '<br />';
+                } else {
+                    // 休憩時間レコードがある場合
+                    $startTime = Carbon::parse($attendance->start_at);
+                    $endTime = Carbon::parse($attendance->end_at);
+                    // 勤務時間を計算
+                    $diff = $startTime->diff($endTime);
+                    $displayAttTotal .= self::xss($diff->format('%H:%I:%S')) . '<br />';
+                }
+            }
+        }
+
+        return $displayAttTotal;
     }
 
 
