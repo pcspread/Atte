@@ -28,10 +28,10 @@ use App\Http\Controllers\RestController;
 // Route::middleware('verified')->group(function() {
     // Route::get('/dashboard', [AuthenticatedSessionController::class, 'index']);
 
-    Route::middleware('auth')->group(function() {
-                
+    Route::middleware('auth')->group(function() {   
+             
         // スタンプ(home)ページ表示
-        Route::get('/', [AuthController::class, 'index']);
+        Route::get('/', [AuthController::class, 'index'])->middleware('basicauth');
         
         // 社員出勤処理
         Route::post('/', [AttendanceController::class, 'store']);
@@ -70,7 +70,5 @@ use App\Http\Controllers\RestController;
 
         
         // ログアウト処理
-        Route::post('/logout', [AuthController::class, 'logout']); 
-    // });
-});
-
+        Route::post('/logout', [AuthController::class, 'logout']);
+    });
