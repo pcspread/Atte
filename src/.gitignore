@@ -13,3 +13,10 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+# Ignore .env.testing file
+.env.testing
+# Ignore test files
+/tests/Feature/*.php
+# .env.local用
+.env.local
