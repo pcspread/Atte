@@ -1,5 +1,6 @@
 @php
 use Carbon\Carbon;
+use App\Models\Attendance;
 @endphp
 
 @extends('layouts.app')
@@ -51,42 +52,22 @@ use Carbon\Carbon;
 
                 <!-- 勤務開始 -->
                 <td class="date-row__content">
-                    {{ $attendance->changeDate($attendance->start_at) }}
+                    {{ Carbon::parse($attendance->start_at)->format('H:i:s') }}
                 </td>
                 
                 <!-- 勤務終了 -->
                 <td class="date-row__content">
-                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $attendance->changeDate($attendance->end_at) }}
+                    {{ (Carbon::parse($attendance->end_at)->format('H:i:s') === Carbon::now()->toTimeString()) ? '(勤務中)' : Carbon::parse($attendance->end_at)->format('H:i:s') }}
                 </td>
                 
                 <!-- 休憩時間 -->
                 <td class="date-row__content">
-                    @php
-                        $arrayBreak = [];
-                        $arrayRestart = [];
-                        foreach ($attendance->rests as $item) {
-                            $arrayBreak[] = $item->break_at;
-                            $arrayRestart[] = $item->restart_at;
-                        }
-                        $restTime = $attendance->totalRes($arrayBreak, $arrayRestart);
-                    @endphp
-                    {{ $restTime }}
+                    {!! Attendance::dateRestTotal($attendance) !!}
                 </td>
                 
                 <!-- 勤務時間 -->
                 <td class="date-row__content">
-                    @php
-                        $diffParent = Carbon::parse($attendance->totalAtt($attendance->start_at, $attendance->end_at));
-                       
-                        if (($restTime) === '(休憩中)') {
-                            $diffChild = Carbon::parse('00:00:00');
-                        } else {
-                            $diffChild = Carbon::parse($restTime);
-                        }
-
-                        $diffTime = $diffParent->diff($diffChild);
-                    @endphp
-                    {{ ($attendance->changeDate($attendance->end_at) === Carbon::now()->toTimeString()) ? '(勤務中)' : $diffTime->format('%H:%I:%S') }}
+                    {!! Attendance::dateAttTotal($attendance) !!}
                 </td>
             </tr>
             @endforeach

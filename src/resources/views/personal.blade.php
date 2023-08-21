@@ -70,28 +70,28 @@ use App\Models\Attendance;
                 <!-- 日付 -->
                 <td class="personal-row__content day">
                     {{ $day->isoFormat('D日(dd)') }}
-                    {!! Attendance::displayTodayMark($day) !!}
+                    {!! Attendance::personalTodayMark($day) !!}
                 </td>
                 
                 <!-- 勤務開始 -->
                 <td class="personal-row__content">
-                    {!! Attendance::displayStart($attendances) !!}
+                    {!! Attendance::personalStartTime($attendances) !!}
                 </td>
                 
                 <!-- 勤務終了 -->
                 <td class="personal-row__content">
-                    {!! Attendance::displayEnd($attendances) !!}
+                    {!! Attendance::personalEndTime($attendances) !!}
                 </td>
 
                 <!-- 休憩時間 -->
                 <td class="personal-row__content rest-time">
-                    {!! Attendance::displayRestTotal($attendances) !!}
+                    {!! Attendance::personalRestTotal($attendances) !!}
 
                     <!-- 休憩詳細 -->
                     @foreach ($attendances as $attendance)
                         @if ($attendance->rests->first())
                         <div class="rest-detail">
-                            {!! Attendance::displayRestDetail($attendances) !!}
+                            {!! Attendance::personalRestDetail($attendances) !!}
                         </div>
                         @endif
                     @endforeach
@@ -99,7 +99,7 @@ use App\Models\Attendance;
                 
                 <!-- 勤務時間 -->
                 <td class="personal-row__content">
-                    {!! Attendance::displayAttTotal($attendances) !!}
+                    {!! Attendance::personalAttTotal($attendances) !!}
                 </td>
             </tr>
             @endforeach

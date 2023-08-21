@@ -155,10 +155,12 @@ class AttendanceController extends Controller
         $now = Carbon::now();
 
         // $user_idが無い、もしくは数字で無い場合(未関係の文字を入力された場合)
-        if (empty($user_id) || !is_numeric($user_id)) {
+        // $monthが'Y-m'型で無い場合
+        if (empty($user_id) || !is_numeric($user_id) || ($month && !Carbon::hasFormat($month, 'Y-m'))) {
             // 社員一覧ページへ
             return redirect('/attendance/list');
         }
+        
 
         // 該当IDのレコードを取得
         $user = User::find($user_id);
@@ -193,5 +195,4 @@ class AttendanceController extends Controller
 
         return view('personal');
     }
-
 }
