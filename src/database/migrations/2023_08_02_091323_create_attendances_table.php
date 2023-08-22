@@ -13,13 +13,15 @@ class CreateAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->datetime('start_at');
-            $table->datetime('end_at')->nullable();
-            $table->date('date_at')->nullable();
-        });
+        if (!Schema::hasTable('attendances')) {
+            Schema::create('attendances', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+                $table->datetime('start_at');
+                $table->datetime('end_at')->nullable();
+                $table->date('date_at')->nullable();
+            });
+        }
     }
 
     /**
