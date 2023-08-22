@@ -17,11 +17,11 @@
 ## アプリケーションURL
 ローカル環境で作成しています。<br />
 [アプリ]<br />
-localhost/<br />
+  localhost/<br />
 [phpMyAdmin]<br />
-localhost:8080<br />
+  localhost:8080<br />
 [MailHog]<br />
-localhost:8025<br />
+  localhost:8025<br />
 
 
 ## 他のリポジトリ
@@ -61,7 +61,7 @@ MailHog
 
 
 ## ER図
-![Alt text](image-1.png)
+![Alt text](image-6.png)
 
 
 ## 画面遷移図
@@ -86,7 +86,7 @@ MailHog
 　GitHub
 
 
-■ ディレクトリ構成
+■ ディレクトリ構成<br />
 ![Alt text](image-5.png)
 
 
@@ -96,7 +96,7 @@ MailHog
 [内容]<br />
 ・名前　　　　　　：テスト一郎～テスト十郎<br />
 ・メールアドレス　：test1@example.com～test10@example.com<br />
-・パスワード　　  ：test7777<br />
+・パスワード　　  　：test7777<br />
 [件数]<br />
 ・ユーザーデータ　　　　　：10件<br />
 ・出勤データ、休憩データ　：各550件<br />
@@ -108,10 +108,9 @@ MailHog
 (2)php artisan db:seed
 
 ■ メール認証<br />
-新規登録時には、メール認証を実装しています。<br />
+新規登録時には、メール認証を行っています。<br />
 ローカル環境の為、MailHogを使用しています。<br />
-新規登録情報を入力後に、下記でメール認証を行ってください。<br />
-http://localhost:8025/<br />
+新規登録で「メール送信済ページ」に遷移した際には、http://localhost:8025で認証確認をお願いします。<br />
 ※「社員情報の登録」を押して、メインページへ画面遷移します。
 
 ■ テスト実施<br />
