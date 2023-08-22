@@ -13,12 +13,14 @@ class CreateRestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rests', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
-            $table->time('break_at');
-            $table->time('restart_at')->nullable();
-        });
+        if (!Schema::hasTable('rests')) {
+            Schema::create('rests', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
+                $table->time('break_at');
+                $table->time('restart_at')->nullable();
+            });
+        }
     }
 
     /**

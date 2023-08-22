@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 // Model読込
 use App\Models\User;
+// Carbon読込
+use Carbon\Carbon;
 
 class UserSeeder extends Seeder
 {
@@ -25,7 +27,10 @@ class UserSeeder extends Seeder
             $param = [
                 'name' => "テスト{$array[$i - 1]}",
                 'email' => "test{$i}@example.com",
-                'password' => bcrypt('test7777')
+                'password' => bcrypt('test7777'),
+                'email_verified_at' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ];
             DB::table('users')->insert($param);
         }

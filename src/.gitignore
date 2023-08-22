@@ -19,4 +19,4 @@ yarn-error.log
 # Ignore test files
 /tests/Feature/*.php
 # .env.local用
-.env.local
+.env.staging

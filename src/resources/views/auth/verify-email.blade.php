@@ -16,7 +16,6 @@
             入力されたメールアドレスに確認メールを送信しました<br />
             確認メールが届きましたら、「Verify Email Address」を押して、登録を完了してください
         </p>
-        <!-- <a class="logout-content__link" href="/register" autofocus>新規登録画面へ</a> -->
     </div>
 </div>
 @endsection
