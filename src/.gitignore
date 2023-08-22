@@ -15,7 +15,7 @@ yarn-error.log
 /.vscode
 
 # Ignore .env.testing file
-.env.testing
+.env.test
 # Ignore test files
 /tests/Feature/*.php
 # .env.local用
