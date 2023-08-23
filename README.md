@@ -1,10 +1,10 @@
-# アプリケーション情報
+## アプリケーション情報
 ■ アプリケーション名<br />
 ・Atte
 
 ■ 概要<br />
 ・社員の勤怠管理を行うシステム<br />
-    (社員の出勤状況と休憩状況を管理する)
+&emsp;(社員の出勤状況と休憩状況を管理する)
 
 ■ トップ画像
 ![Alt text](image.png)
@@ -17,11 +17,11 @@
 ## アプリケーションURL
 ローカル環境で作成しています。<br />
 [アプリ]<br />
-  localhost/<br />
+&emsp;localhost/<br />
 [phpMyAdmin]<br />
-  localhost:8080<br />
+&emsp;localhost:8080<br />
 [MailHog]<br />
-  localhost:8025<br />
+&emsp;localhost:8025<br />
 
 
 ## 他のリポジトリ
@@ -53,7 +53,7 @@
 ・Fortify
 
 ■ メール認証<br />
-MailHog
+・MailHog
 
 
 ## テーブル設計
@@ -71,19 +71,19 @@ MailHog
 ## 環境構築
 ■ 開発環境<br />
 ・土台<br />
-　Docker<br />
-　LinuxOS<br />
+&emsp;Docker<br />
+&emsp;LinuxOS<br />
 ・操作<br />
-  ubuntu<br />
-　VSCode<br />
+&emsp;ubuntu<br />
+&emsp;VSCode<br />
 ・サーバー<br />
-　nginx<br />
+&emsp;nginx<br />
 ・データベース<br />
-　mysql<br />
-　phpMyAdmin<br />
+&emsp;mysql<br />
+&emsp;phpMyAdmin<br />
 ・管理<br />
   Git<br />
-　GitHub
+&emsp;GitHub
 
 
 ■ ディレクトリ構成<br />
@@ -110,7 +110,8 @@ MailHog
 ■ メール認証<br />
 新規登録時には、メール認証を行っています。<br />
 ローカル環境の為、MailHogを使用しています。<br />
-新規登録で「メール送信済ページ」に遷移した際には、http://localhost:8025で認証確認をお願いします。<br />
+新規登録で「メール送信済ページ」に遷移した際には、下記でメール確認をお願いします。<br />
+http://localhost:8025<br />
 ※「社員情報の登録」を押して、メインページへ画面遷移します。
 
 ■ テスト実施<br />
