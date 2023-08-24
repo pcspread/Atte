@@ -57,15 +57,15 @@
 
 
 ## テーブル設計
-![Alt text](image-3.png)
+![Alt text](image-1.png)
 
 
 ## ER図
-![Alt text](image-6.png)
+![Alt text](image-2.png)
 
 
 ## 画面遷移図
-![Alt text](image-4.png)
+![Alt text](image-3.png)
 
 
 ## 環境構築
@@ -87,7 +87,7 @@
 
 
 ■ ディレクトリ構成<br />
-![Alt text](image-5.png)
+![Alt text](image-4.png)
 
 
 ## その他
@@ -114,7 +114,7 @@
 http://localhost:8025<br />
 ※「社員情報の登録」を押して、メインページへ画面遷移します。
 
-■ テスト実施<br />
+■ 実施テスト<br />
 ・基本的なテスト(値のチェック)<br />
 ・アクセステスト(正しくアクセスできるかチェック)<br />
 ・データベーステスト(データベースへの値の挿入、データ存在チェック)<br />
