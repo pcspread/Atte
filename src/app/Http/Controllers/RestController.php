@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 // Model読込
 use App\Models\Rest;
 use App\Models\Attendance;
-// Auth読込
-use Illuminate\Support\Facades\Auth;
 // Carbon読込
 use Carbon\Carbon;
 

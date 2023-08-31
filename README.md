@@ -86,8 +86,22 @@
 &emsp;GitHub
 
 
-■ ディレクトリ構成<br />
+■ 環境構築方法<br />
+(1)下記ディレクトリ構成で、ディレクトリを作成
 ![Alt text](image-4.png)
+(2)コンポーザーインストール<br />
+```bash
+$ RUN curl -sS https://getcomposer.org/installer | php \<br />
+```
+(3)Laravelインストール<br />
+```bash
+$ docker-compose exec php bash
+$ composer create-project "laravel/laravel=8.*" . --prefer-dist
+```
+(4)Mysqlコンテナ上で、データベース(laravel_db)作成<br />
+```php
+$ docker-compose exec mysql bash
+```
 
 
 ## その他
